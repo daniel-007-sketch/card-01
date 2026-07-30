@@ -2335,7 +2335,7 @@
 
 
     .invitation.is-visible
-    + .music-button {
+    ~ .music-button {
 
       display: grid;
     }
@@ -3252,7 +3252,7 @@
     class="music-button"
     id="musicButton"
     type="button"
-    aria-label="Toggle music"
+    aria-label="Play music"
   >
     ♪
   </button>
@@ -4099,6 +4099,11 @@
         musicButton.textContent =
           "Ⅱ";
 
+        musicButton.setAttribute(
+          "aria-label",
+          "Pause music"
+        );
+
       }
 
       catch (error) {
@@ -4110,6 +4115,11 @@
 
         musicButton.textContent =
           "♪";
+
+        musicButton.setAttribute(
+          "aria-label",
+          "Play music"
+        );
 
       }
 
@@ -4153,6 +4163,11 @@
 
           musicButton.textContent =
             "♪";
+
+          musicButton.setAttribute(
+            "aria-label",
+            "Play music"
+          );
 
         }
 
