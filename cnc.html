@@ -1173,9 +1173,8 @@
     }
 
 
-    /* Keep the paper-card artwork equally sized on pages three, five, and nine. */
+    /* Keep the paper-card artwork equally sized on pages three and nine. */
     .page-three-panel::after,
-    .page-five-panel::after,
     .page-nine-panel::after {
 
       background-size: 100% 100%;
@@ -1200,7 +1199,7 @@
     .page-one-gif-panel::after {
 
       background:
-        url("./new_dove_2.gif")
+        url("./download (3).gif")
         center / 100% 100%
         no-repeat;
 
@@ -2354,6 +2353,38 @@
       letter-spacing: .045em;
     }
 
+    .panel.page-two-panel {
+
+      min-height: 0 !important;
+
+      padding-block:
+        clamp(8px, 2vw, 14px);
+    }
+
+    .page-two-panel > div {
+
+      display: grid;
+
+      place-items: center;
+
+      padding:
+        clamp(8px, 2vw, 14px)
+        clamp(10px, 3vw, 16px);
+
+      transform: none;
+    }
+
+    .page-two-image {
+
+      display: block;
+
+      width: min(100%, 420px);
+
+      height: auto;
+
+      object-fit: contain;
+    }
+
     .page-nine-panel .section-title {
 
       margin-bottom:
@@ -2656,11 +2687,35 @@
     .page-five-panel .schedule-time,
     .page-five-panel .schedule-event {
 
-      font:
-        500
-        clamp(.58rem, 1.8vw, .68rem)/1.25
+      font-family:
         Montserrat,
         sans-serif;
+
+      line-height: 1.25;
+    }
+
+    .page-five-panel .schedule-time {
+
+      font-size:
+        clamp(
+          .76rem,
+          2.4vw,
+          .92rem
+        );
+
+      font-weight: 600;
+    }
+
+    .page-five-panel .schedule-event {
+
+      font-size:
+        clamp(
+          .68rem,
+          2.2vw,
+          .82rem
+        );
+
+      font-weight: 500;
     }
 
 
@@ -2825,24 +2880,11 @@
 
         <div>
 
-          <p class="eyebrow reveal font-montserrat">
-            In Regonition Of The Elevation Of
-          </p>
-
-          <h2 class="event-title names-title reveal">
-
-            Patience Kokundeka <br>
-            Museveni Rwabwogo
-
-          </h2>
-
-          <p class="eyebrow reveal font-montserrat">
-            To the Episcopal Office of Bishop
-          </p>
-
-          <span class="ampersand reveal">
-            &amp;
-          </span>
+          <img
+            class="page-two-image reveal"
+            src="./image (1).png"
+            alt="Recognition of the elevation to the Episcopal Office of Bishop"
+          >
 
         </div>
 
@@ -2989,7 +3031,7 @@
            RECEPTION SCHEDULE
       ==================================================== -->
 
-      <section class="panel background-card-panel page-five-panel">
+      <section class="panel plain-white-panel page-five-panel">
 
         <div>
 
