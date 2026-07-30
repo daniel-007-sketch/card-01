@@ -186,7 +186,7 @@
 
       background:
         #f9f0e0
-        url("./background_card.png")
+        url("./new background.png")
         center / cover
         no-repeat;
 
@@ -398,7 +398,7 @@
           rgba(255,255,255,.12),
           rgba(255,255,255,.12)
         ),
-        url("./background_card.png");
+        url("./new background.png");
 
       background-position: center;
 
@@ -1065,7 +1065,7 @@
 
       background-image:
         url(
-          "./background_card.png"
+          "./new background.png"
         );
 
       background-position: center;
@@ -1124,7 +1124,7 @@
 
       background-image:
         url(
-          "./background_card.png"
+          "./new background.png"
         ) !important;
 
       background-position: center;
@@ -1156,7 +1156,7 @@
 
       background:
         url(
-          "./flower&back (1).png"
+          "./new background.png"
         )
         center / cover
         no-repeat;
@@ -1173,8 +1173,9 @@
     }
 
 
-    /* Show every torn-paper edge on pages three and nine. */
+    /* Keep the paper-card artwork equally sized on pages three, five, and seven. */
     .page-three-panel::after,
+    .page-five-panel::after,
     .page-nine-panel::after {
 
       background-size: 100% 100%;
@@ -1199,7 +1200,7 @@
     .page-one-gif-panel::after {
 
       background:
-        url("./Untitled design.gif")
+        url("./new_dove_2.gif")
         center / 100% 100%
         no-repeat;
 
@@ -2408,11 +2409,6 @@
           100% 100%;
       }
 
-      .page-five-panel {
-
-        min-height: 800px;
-      }
-
       .page-eight-panel {
 
         min-height: 440px;
@@ -2558,6 +2554,64 @@
 
         height: 56px;
       }
+    }
+
+    /* =========================================================
+       UNIFORM PAPER-CARD PAGES
+    ========================================================= */
+
+    .panel.page-three-panel,
+    .panel.page-five-panel,
+    .panel.page-nine-panel {
+
+      min-height: 0 !important;
+
+      aspect-ratio: 5 / 7;
+    }
+
+    .page-five-panel > div {
+
+      padding:
+        clamp(38px, 7vw, 50px)
+        clamp(16px, 5vw, 28px);
+    }
+
+    .page-five-panel .section-title,
+    .page-nine-panel .section-title {
+
+      margin-bottom:
+        clamp(18px, 4vw, 28px);
+
+      font-size:
+        clamp(
+          1.9rem,
+          6vw,
+          2.7rem
+        );
+
+      line-height: 1.05;
+    }
+
+    .page-five-panel .schedule-timeline {
+
+      min-height:
+        clamp(
+          330px,
+          82vw,
+          430px
+        );
+
+      margin-top: 0;
+    }
+
+    .page-five-panel .schedule-side {
+
+      min-height:
+        clamp(
+          66px,
+          16.4vw,
+          86px
+        );
     }
 
 
@@ -2887,7 +2941,7 @@
 
       <section class="panel background-card-panel page-five-panel">
 
-        <div style="width:100%; padding-top: 95px;">
+        <div>
 
           <h2 class="section-title reveal">
            Reception Service
