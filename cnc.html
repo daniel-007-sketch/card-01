@@ -1,0 +1,4112 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#ffffff">
+
+  <title>CNC Private Invitation</title>
+
+  <meta name="description" content="Private invitation to the CNC consecration and investiture service.">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="default">
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+
+  <link
+    href="https://fonts.googleapis.com/css2?family=Cinzel:wght@500;600&family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;1,500&family=Inter:wght@400;500;600&family=Montserrat:wght@500;600;700&display=swap"
+    rel="stylesheet"
+  >
+
+  <style>
+
+    /* =========================================================
+       GLOBAL VARIABLES
+    ========================================================= */
+
+    :root {
+      --ink: #30251d;
+      --muted: #766a5f;
+      --wine: #641624;
+      --wine-dark: #360711;
+      --gold: #b99455;
+      --cnc-blue: #1794cb;
+      --paper: #fffaf0;
+      --white: #ffffff;
+
+      --ease: cubic-bezier(.22, .8, .24, 1);
+    }
+
+
+    /* =========================================================
+       GLOBAL RESET
+    ========================================================= */
+
+    * {
+      box-sizing: border-box;
+    }
+
+    html {
+      scroll-behavior: smooth;
+      -webkit-tap-highlight-color: transparent;
+      background: var(--white);
+    }
+
+    body {
+      margin: 0;
+      overflow: hidden;
+
+      color: var(--ink);
+
+      background: var(--white);
+
+      font-family: Inter, sans-serif;
+    }
+
+    button,
+    input {
+      font: inherit;
+      touch-action: manipulation;
+    }
+
+    button {
+      cursor: pointer;
+    }
+
+
+    /* =========================================================
+       ACCESS / ENVELOPE SCREEN
+    ========================================================= */
+
+    .gate {
+      position: fixed;
+      inset: 0;
+
+      z-index: 50;
+
+      display: grid;
+      place-items: center;
+
+      min-height: 100svh;
+
+      padding: 0;
+
+      overflow: hidden;
+
+      background: #f9f0e0;
+
+      transition:
+        opacity .9s ease,
+        visibility .9s ease;
+    }
+
+    .gate.is-gone {
+      opacity: 0;
+      visibility: hidden;
+      pointer-events: none;
+    }
+
+
+    /* =========================================================
+       ENVELOPE STAGE
+    ========================================================= */
+
+    .envelope-stage {
+      position: relative;
+
+      width: min(92vw, 460px);
+
+      min-height: 710px;
+
+      display: grid;
+
+      align-content: center;
+
+      justify-items: center;
+
+      perspective: 1400px;
+    }
+
+
+    /* =========================================================
+       TOP TEXT
+    ========================================================= */
+
+    .gate-kicker {
+      margin: 0 0 22px;
+
+      color: var(--muted);
+
+      font:
+        500 .66rem/1
+        Inter,
+        sans-serif;
+
+      letter-spacing: .28em;
+
+      text-transform: uppercase;
+
+      text-align: center;
+    }
+
+    /* =========================================================
+       VIDEO ENVELOPE
+    ========================================================= */
+
+    .video-stage {
+
+      position: relative;
+
+      width: min(100vw, 550px);
+
+      height: 100svh;
+
+      display: grid;
+
+      justify-items: center;
+
+      transition:
+        opacity .8s ease,
+        transform .9s var(--ease);
+    }
+
+
+    .video-frame {
+
+      position: relative;
+
+      width: 100%;
+
+      height: 100%;
+
+      overflow: hidden;
+
+      border-radius: 0;
+
+      background:
+        #f9f0e0
+        url("./background_card.png")
+        center / cover
+        no-repeat;
+
+      box-shadow:
+        0 28px 55px
+        rgba(68,49,31,.2);
+    }
+
+
+    .intro-video {
+
+      position: relative;
+
+      z-index: 1;
+
+      display: block;
+
+      width: 100%;
+
+      height: 100%;
+
+      object-fit: cover;
+    }
+
+
+    .video-code-box {
+
+      position: absolute;
+
+      left: 50%;
+
+      bottom: 9%;
+
+      z-index: 3;
+
+      width: min(58%, 260px);
+
+      padding: 6px;
+
+      border: 0;
+
+      background: transparent;
+
+      box-shadow: none;
+
+      transform:
+        translateX(-50%);
+
+      transition:
+        opacity .45s ease,
+        transform .55s var(--ease);
+    }
+
+
+    .video-code-fields {
+
+      display: grid;
+
+      grid-template-columns: 1fr;
+
+      gap: 8px;
+    }
+
+    .video-code-box
+    .code-input {
+
+      border: 0;
+
+      border-radius: 0;
+
+      color: #7d5b00;
+
+      background: transparent;
+
+      padding:
+        10px 11px;
+
+      font-family:
+        Cinzel,
+        serif;
+
+      /* iOS Safari zooms focused inputs whose text is smaller than 16px. */
+      font-size: 1rem;
+
+      font-weight: 800;
+    }
+
+
+    .video-code-box
+    .code-input::placeholder {
+
+      color: #7d5b00;
+
+      opacity: 1;
+    }
+
+
+    .video-code-box
+    .code-input:focus {
+
+      border-color:
+        #7d5b00;
+
+      box-shadow: none;
+    }
+
+
+    .video-code-box
+    .demo-note {
+
+      color: #7d5b00;
+
+      font-family:
+        Montserrat,
+        sans-serif;
+
+      font-weight: 700;
+
+      letter-spacing:
+        .08em;
+    }
+
+    .video-code-box,
+    .video-code-box * {
+
+      color:
+        #7d5b00 !important;
+    }
+
+
+    .video-code-box
+    .code-input::placeholder {
+
+      color:
+        #7d5b00 !important;
+
+      font-size: 1.1rem;
+
+      font-weight: 800;
+
+      letter-spacing: .18em;
+    }
+
+
+    .video-stage.is-opening
+    .video-code-box {
+
+      opacity: 0;
+
+      transform:
+        translate(-50%, 24px);
+
+      pointer-events: none;
+    }
+
+
+    .video-stage.is-leaving {
+
+      opacity: 0;
+
+      transform:
+        translateY(-45px)
+        scale(.97);
+    }
+
+
+    /* =========================================================
+       ENVELOPE
+    ========================================================= */
+
+    .envelope {
+      position: relative;
+
+      width: min(100%, 420px);
+
+      aspect-ratio: 4 / 5.25;
+
+      filter:
+        drop-shadow(
+          0 25px 28px
+          rgba(68, 49, 31, .16)
+        );
+
+      transition:
+        transform 1.1s var(--ease),
+        opacity .8s ease;
+    }
+
+
+    /* =========================================================
+       ENVELOPE PAPER ELEMENTS
+    ========================================================= */
+
+    .envelope-paper,
+    .envelope-front,
+    .envelope-flap,
+    .letter {
+
+      position: absolute;
+
+      inset: 0;
+
+      border:
+        1px solid
+        rgba(99, 76, 46, .16);
+
+      background-image:
+        linear-gradient(
+          rgba(255,255,255,.12),
+          rgba(255,255,255,.12)
+        ),
+        url("./background_card.png");
+
+      background-position: center;
+
+      background-size: cover;
+    }
+
+
+    /* =========================================================
+       ENVELOPE BODY
+    ========================================================= */
+
+    .envelope-paper {
+      overflow: hidden;
+
+      border-radius: 2px;
+    }
+
+
+    /* =========================================================
+       LETTER INSIDE ENVELOPE
+    ========================================================= */
+
+    .letter {
+
+      inset: 7% 7% 5%;
+
+      z-index: 2;
+
+      display: grid;
+
+      place-items: center;
+
+      border:
+        1px solid
+        rgba(185, 148, 85, .38);
+
+      border-radius: 2px;
+
+      text-align: center;
+
+      transform: translateY(19%);
+
+      transition:
+        transform 1.35s var(--ease);
+    }
+
+    .letter::after {
+
+      position: absolute;
+
+      inset: 14px;
+
+      border:
+        1px solid
+        rgba(185,148,85,.35);
+
+      content: "";
+    }
+
+
+    /* =========================================================
+       LETTER TEXT
+
+       IMPORTANT:
+       The guest name is completely hidden initially.
+       It only appears once the envelope starts opening.
+    ========================================================= */
+
+    .letter-copy {
+
+      position: relative;
+
+      z-index: 1;
+
+      padding: 30px;
+
+      opacity: 0;
+
+      transform: translateY(18px);
+
+      transition:
+        opacity .8s .65s ease,
+        transform .8s .65s ease;
+    }
+
+    .letter-copy small {
+
+      display: block;
+
+      margin-bottom: 12px;
+
+      color: var(--muted);
+
+      font-size: .61rem;
+
+      letter-spacing: .3em;
+
+      text-transform: uppercase;
+    }
+
+    .letter-copy strong {
+
+      display: block;
+
+      color: var(--wine);
+
+      font:
+        500
+        clamp(1.9rem, 7vw, 3rem)/1
+        Cormorant Garamond,
+        serif;
+    }
+
+
+    /* =========================================================
+       ENVELOPE FRONT
+    ========================================================= */
+
+    .envelope-front {
+
+      z-index: 3;
+
+      border: 0;
+
+      clip-path:
+        polygon(
+          0 44%,
+          50% 71%,
+          100% 44%,
+          100% 100%,
+          0 100%
+        );
+
+      filter: brightness(.96);
+    }
+
+    .envelope-front::after {
+
+      position: absolute;
+
+      inset: 0;
+
+      background:
+        linear-gradient(
+          31deg,
+          transparent 49.7%,
+          rgba(77,57,35,.14) 50%,
+          transparent 50.4%
+        ),
+        linear-gradient(
+          -31deg,
+          transparent 49.7%,
+          rgba(77,57,35,.14) 50%,
+          transparent 50.4%
+        );
+
+      content: "";
+    }
+
+
+    /* =========================================================
+       ENVELOPE FLAP
+    ========================================================= */
+
+    .envelope-flap {
+
+      z-index: 5;
+
+      height: 51%;
+
+      border: 0;
+
+      clip-path:
+        polygon(
+          0 0,
+          100% 0,
+          50% 100%
+        );
+
+      transform-origin: 50% 0;
+
+      backface-visibility: hidden;
+
+      filter: brightness(1.025);
+
+      transition:
+        transform 1.1s var(--ease),
+        z-index 0s .55s;
+    }
+
+    .envelope-flap::after {
+
+      position: absolute;
+
+      inset: 0;
+
+      background:
+        linear-gradient(
+          145deg,
+          transparent 49.5%,
+          rgba(75,54,32,.15) 50%,
+          transparent 50.5%
+        );
+
+      content: "";
+    }
+
+
+    /* =========================================================
+       WAX SEAL
+    ========================================================= */
+
+    .seal {
+
+      position: absolute;
+
+      top: 43%;
+
+      left: 50%;
+
+      z-index: 7;
+
+      width: 98px;
+
+      aspect-ratio: 1;
+
+      display: grid;
+
+      place-items: center;
+
+      border: 0;
+
+      border-radius:
+        45% 52% 46% 53%;
+
+      color: #dfbf85;
+
+      background:
+
+        radial-gradient(
+          circle at 37% 31%,
+          #a44755 0 8%,
+          transparent 9%
+        ),
+
+        radial-gradient(
+          circle,
+          #88273a 0 38%,
+          #681426 57%,
+          #3d0712 100%
+        );
+
+      box-shadow:
+
+        0 11px 22px
+        rgba(57,5,15,.34),
+
+        inset 0 0 0 5px
+        rgba(235,194,123,.16),
+
+        inset 0 0 18px
+        rgba(0,0,0,.35);
+
+      font:
+        600
+        1.4rem/1
+        Cinzel,
+        serif;
+
+      letter-spacing: -.04em;
+
+      transform:
+        translate(-50%, -50%)
+        rotate(-4deg);
+
+      transition:
+        opacity .55s ease,
+        transform .7s var(--ease);
+    }
+
+    .seal::before {
+
+      position: absolute;
+
+      inset: 13px;
+
+      border:
+        1px solid
+        rgba(230,195,132,.72);
+
+      border-radius: 50%;
+
+      content: "";
+    }
+
+
+    /* =========================================================
+       CODE INPUT
+
+       NO ENTER BUTTON
+    ========================================================= */
+
+    .code-box {
+
+      position: absolute;
+
+      left: 50%;
+
+      bottom: 7%;
+
+      z-index: 8;
+
+      width: min(82%, 315px);
+
+      padding: 14px;
+
+      border:
+        1px solid
+        rgba(185,148,85,.42);
+
+      border-radius: 4px;
+
+      background:
+        rgba(255,255,255,.91);
+
+      box-shadow:
+        0 10px 28px
+        rgba(58,42,26,.13);
+
+      transform: translateX(-50%);
+
+      backdrop-filter: blur(8px);
+
+      transition:
+        opacity .45s ease,
+        transform .55s var(--ease);
+    }
+
+
+    .code-input {
+
+      width: 100%;
+
+      min-width: 0;
+
+      padding: 14px 13px;
+
+      border:
+        1px solid
+        #d9cbb4;
+
+      border-radius: 2px;
+
+      outline: 0;
+
+      color: var(--ink);
+
+      background: #ffffff;
+
+      text-align: center;
+
+      text-transform: uppercase;
+
+      letter-spacing: .15em;
+
+      transition:
+        border-color .3s ease,
+        box-shadow .3s ease;
+    }
+
+    .code-input:focus {
+
+      border-color: var(--gold);
+
+      box-shadow:
+        0 0 0 3px
+        rgba(185,148,85,.13);
+    }
+
+
+    /* =========================================================
+       CODE MESSAGE
+    ========================================================= */
+
+    .code-message {
+
+      min-height: 16px;
+
+      margin: 9px 0 0;
+
+      color: #9a293a;
+
+      font-size: .7rem;
+
+      text-align: center;
+    }
+
+
+    .demo-note {
+
+      margin:
+        14px 0 0;
+
+      color: #94877a;
+
+      font-size: .65rem;
+
+      text-align: center;
+    }
+
+
+    /* =========================================================
+       PAGE FOOTER
+    ========================================================= */
+
+    .page-footer {
+
+      padding:
+        18px 20px;
+
+      text-align: center;
+
+      background:
+        #ffffff;
+
+      opacity: 0;
+
+      visibility: hidden;
+
+      transition:
+        opacity .6s ease,
+        visibility .6s ease;
+    }
+
+
+    .invitation.is-visible
+    ~ .page-footer {
+
+      opacity: 1;
+
+      visibility: visible;
+    }
+
+
+    .page-footer p {
+
+      margin: 0;
+
+      color: #94877a;
+
+      font:
+        500 .65rem/1.5
+        Montserrat,
+        sans-serif;
+
+      letter-spacing: .04em;
+    }
+
+
+    .page-footer a {
+
+      color: #94877a;
+
+      text-decoration: none;
+
+      transition:
+        color .25s ease;
+    }
+
+
+    @media (hover: hover) {
+
+      .page-footer a:hover {
+
+        color: var(--wine);
+      }
+    }
+
+
+    /* =========================================================
+       ENVELOPE OPENING ANIMATION
+    ========================================================= */
+
+    .envelope-stage.is-opening
+    .code-box {
+
+      opacity: 0;
+
+      transform:
+        translate(-50%, 25px);
+
+      pointer-events: none;
+    }
+
+
+    .envelope-stage.is-opening
+    .seal {
+
+      opacity: 0;
+
+      transform:
+        translate(-50%, -50%)
+        scale(.15)
+        rotate(22deg);
+    }
+
+
+    .envelope-stage.is-opening
+    .envelope-flap {
+
+      z-index: 1;
+
+      transform:
+        rotateX(180deg);
+    }
+
+
+    .envelope-stage.is-opening
+    .letter {
+
+      z-index: 6;
+
+      transform:
+        translateY(-14%);
+    }
+
+
+    /* The name appears only after the letter rises */
+
+    .envelope-stage.is-opening
+    .letter-copy {
+
+      opacity: 1;
+
+      transform:
+        translateY(0);
+    }
+
+
+    /* =========================================================
+       ENVELOPE LEAVING SCREEN
+    ========================================================= */
+
+    .envelope-stage.is-leaving
+    .envelope {
+
+      opacity: 0;
+
+      transform:
+        translateY(-70px)
+        scale(.95);
+    }
+
+
+    /* =========================================================
+       INVITATION
+    ========================================================= */
+
+    .invitation {
+
+      visibility: hidden;
+
+      opacity: 0;
+
+      transition:
+        opacity .8s ease;
+    }
+
+    .invitation.is-visible {
+
+      visibility: visible;
+
+      opacity: 1;
+    }
+
+
+    /* =========================================================
+       PAPER SCROLL
+
+       Background is now WHITE.
+       Individual panels control their own backgrounds.
+    ========================================================= */
+
+    .paper-scroll {
+
+      position: relative;
+
+      width: 100%;
+
+      max-width: none;
+
+      margin: 0;
+
+      background: transparent;
+
+      box-shadow: none;
+    }
+
+
+    /* =========================================================
+       SIDE BACKGROUNDS
+    ========================================================= */
+
+    .paper-scroll::before,
+    .paper-scroll::after {
+
+      display: none;
+    }
+
+    .paper-scroll::before {
+      left: 0;
+    }
+
+    .paper-scroll::after {
+      right: 0;
+    }
+
+
+    /* =========================================================
+       INVITATION PANELS
+    ========================================================= */
+
+    .panel {
+
+      position: relative;
+
+      min-height: 100svh;
+
+      display: grid;
+
+      place-items: center;
+
+      padding: 0;
+
+      overflow: hidden;
+
+      text-align: center;
+
+      background: transparent;
+    }
+
+    .panel > div {
+
+      width: 100%;
+
+      min-width: 0;
+
+      padding:
+        clamp(70px, 11vw, 130px)
+        clamp(16px, 5vw, 28px);
+    }
+
+
+    /* =========================================================
+       ALTERNATING BACKGROUNDS
+
+       Odd sections = Parchment
+       Even sections = White
+    ========================================================= */
+
+    .panel:nth-child(odd) {
+
+      background-color: #f5e8c9;
+
+      background-image:
+        url(
+          "./background_card.png"
+        );
+
+      background-position: center;
+
+      background-size: cover;
+
+      background-repeat: no-repeat;
+    }
+
+    .panel:nth-child(even) {
+
+      background:
+        #ffffff;
+    }
+
+    .panel.plain-white-panel {
+
+      background:
+        #ffffff !important;
+    }
+
+    .page-eight-panel > div {
+
+      padding-block:
+        clamp(38px, 6vw, 60px);
+    }
+
+    .page-eight-panel
+    .section-title {
+
+      margin-bottom: 22px;
+    }
+
+    .page-eight-panel
+    .eyebrow {
+
+      margin:
+        14px 0;
+    }
+
+    .page-eight-panel
+    .action {
+
+      margin-top: 16px;
+    }
+
+
+    /* =========================================================
+       FORCE COVENANT NATIONS CHURCH SECTION
+       TO USE PARCHMENT
+    ========================================================= */
+
+    .parchment-panel {
+
+      background-color: #f5e8c9 !important;
+
+      background-image:
+        url(
+          "./background_card.png"
+        ) !important;
+
+      background-position: center;
+
+      background-size: cover;
+
+      background-repeat: no-repeat;
+    }
+
+    .background-card-panel {
+
+      background:
+        transparent !important;
+
+      overflow: visible;
+
+      z-index: 1;
+    }
+
+
+    .background-card-panel::after {
+
+      position:
+        absolute;
+
+      inset: 0;
+
+      z-index: 0;
+
+      background:
+        url(
+          "./flower&back (1).png"
+        )
+        center / cover
+        no-repeat;
+
+      content: "";
+
+      filter:
+        drop-shadow(
+          0 10px 18px
+          rgba(55,42,30,.16)
+        );
+
+      pointer-events: none;
+    }
+
+
+    /* Show every torn-paper edge on pages three and nine. */
+    .page-three-panel::after,
+    .page-nine-panel::after {
+
+      background-size: 100% 100%;
+    }
+
+
+    /* Page one uses the animated church artwork in place of the paper card. */
+    .page-one-gif-panel {
+
+      width: 100%;
+
+      height: 100vh;
+
+      height: 100svh;
+
+      min-height: 100vh;
+
+      min-height: 100svh;
+    }
+
+
+    .page-one-gif-panel::after {
+
+      background:
+        url("./Untitled design.gif")
+        center / 100% 100%
+        no-repeat;
+
+      filter: none;
+    }
+
+
+    .page-one-gif-panel > div {
+
+      align-self: center;
+
+      text-align: center;
+    }
+
+
+    /* Keep page one viewport-sized on desktop without affecting other panels. */
+    @media (min-width: 700px) {
+
+      .page-one-gif-panel {
+
+        min-height: 100svh;
+
+        aspect-ratio: auto;
+      }
+    }
+
+
+    .background-card-panel > div {
+
+      position: relative;
+
+      z-index: 2;
+    }
+
+
+    .background-card-panel,
+    .background-card-panel * {
+
+      color:
+        #7d5b00 !important;
+    }
+
+
+    .invitation,
+    .invitation * {
+
+      color:
+        #7d5b00 !important;
+    }
+
+
+    /* =========================================================
+       PANEL SEPARATORS
+    ========================================================= */
+
+    .panel + .panel::before {
+
+      position: absolute;
+
+      top: 0;
+
+      left: 12%;
+
+      width: 76%;
+
+      height: 1px;
+
+      background:
+        linear-gradient(
+          90deg,
+          transparent,
+          rgba(185,148,85,.55),
+          transparent
+        );
+
+      content: "";
+    }
+
+
+    /* =========================================================
+       TYPOGRAPHY
+    ========================================================= */
+
+    .ornament {
+
+      margin-bottom: 27px;
+
+      color: var(--gold);
+
+      font:
+        500
+        1.15rem/1
+        Cinzel,
+        serif;
+
+      letter-spacing: .55em;
+    }
+
+    .seal-ornament {
+
+      display: block;
+
+      width:
+        clamp(
+          125px,
+          34vw,
+          180px
+        );
+
+      height: auto;
+
+      margin:
+        0 auto 27px;
+
+      filter:
+        drop-shadow(
+          0 8px 12px
+          rgba(73,45,14,.2)
+        );
+    }
+
+
+    .eyebrow {
+
+      margin: 22px 0;
+
+      color: var(--wine);
+
+      font-size: .58rem;
+
+      font-weight: 600;
+
+      letter-spacing: .28em;
+
+      text-transform: uppercase;
+    }
+
+
+    .display-name {
+
+      margin: 0;
+
+      color: var(--wine);
+
+      font:
+        500
+        clamp(1.8rem, 6.5vw, 3.2rem)/1
+        Cormorant Garamond,
+        serif;
+    }
+
+
+    .welcome {
+
+      max-width: 550px;
+
+      margin:
+        30px auto 0;
+
+      font:
+        500
+        clamp(1.25rem, 3.5vw, 1.7rem)/1.55
+        Cormorant Garamond,
+        serif;
+    }
+
+
+    .event-title {
+
+      margin:
+        14px 0;
+
+      color: var(--wine);
+
+      font:
+        500
+        clamp(2.8rem, 10vw, 3.8rem)/.9
+        Cormorant Garamond,
+        serif;
+
+      text-align: center;
+    }
+
+    .names-title {
+
+      font-size:
+        clamp(
+          1.9rem,
+          6vw,
+          2.7rem
+        );
+
+      line-height: 1.05;
+
+      white-space: nowrap;
+    }
+
+
+    .ampersand {
+
+      display: block;
+
+      margin:
+        16px 0;
+
+      color: var(--gold);
+
+      font:
+        italic
+        500
+        2.4rem/1
+        Cormorant Garamond,
+        serif;
+    }
+
+
+    .event-date {
+
+      margin:
+        35px 0 0;
+
+      font:
+        600
+        .78rem/1.6
+        Montserrat,
+        sans-serif;
+
+      letter-spacing: .18em;
+
+      text-transform: uppercase;
+    }
+
+    .save-date-copy {
+
+      margin: 0;
+    }
+
+
+    /* =========================================================
+       MONTESERRAT PARAGRAPHS
+    ========================================================= */
+
+    .font-montserrat {
+
+      font-family:
+        Montserrat,
+        sans-serif;
+    }
+
+
+    .quote {
+
+      max-width: 560px;
+
+      margin: 0 auto;
+
+      color: var(--wine);
+
+      font:
+        italic
+        500
+        clamp(2rem, 6vw, 3.5rem)/1.1
+        Cormorant Garamond,
+        serif;
+    }
+
+
+    .section-title {
+
+      margin:
+        0 0 34px;
+
+      color: var(--wine);
+
+      font:
+        500
+        clamp(2.5rem, 8vw, 4.5rem)/1
+        Cormorant Garamond,
+        serif;
+    }
+
+
+    /* =========================================================
+       SHARED HEADING SIZE
+
+       Matches the schedule-time size for these key headings.
+    ========================================================= */
+
+    #mainGuestName,
+    .section-title {
+
+      font-size:
+        clamp(
+          1.2rem,
+          3.6vw,
+          2rem
+        );
+    }
+
+
+    /* =========================================================
+       COUNTDOWN
+    ========================================================= */
+
+    .countdown {
+
+      display: grid;
+
+      grid-template-columns:
+        repeat(4, 1fr);
+
+      gap: 10px;
+
+      width: 100%;
+
+      margin-top: 40px;
+    }
+
+
+    .time-box {
+
+      padding:
+        20px 5px;
+    }
+
+
+    .time-box strong {
+
+      display: block;
+
+      color: var(--wine);
+
+      font:
+        500
+        clamp(1.8rem, 6vw, 3rem)/1
+        Cormorant Garamond,
+        serif;
+    }
+
+
+    .time-box span {
+
+      display: block;
+
+      margin-top: 8px;
+
+      color: var(--muted);
+
+      font-size: .58rem;
+
+      letter-spacing: .12em;
+
+      text-transform: uppercase;
+    }
+
+
+    /* =========================================================
+       SCHEDULE
+    ========================================================= */
+
+    .schedule-timeline {
+
+      position: relative;
+
+      display: grid;
+
+      grid-template-columns:
+        1fr 70px 1fr;
+
+      width: min(100%, 620px);
+
+      min-height: 700px;
+
+      margin:
+        60px auto 0;
+    }
+
+
+    .schedule-line {
+
+      position: absolute;
+
+      top: 0;
+
+      bottom: 0;
+
+      left: 50%;
+
+      width: 1px;
+
+      background:
+        rgba(122,31,43,.38);
+
+      transform:
+        translateX(-50%);
+    }
+
+
+    .schedule-flower {
+
+      position: absolute;
+
+      top: 0;
+
+      left: 50%;
+
+      z-index: 2;
+
+      display: grid;
+
+      width: 90px;
+
+      height: 90px;
+
+      place-items: center;
+
+      pointer-events: none;
+
+      transform:
+        translate(-50%, -50%);
+
+      transition:
+        top .15s linear;
+    }
+
+
+    .schedule-flower img {
+
+      position: relative;
+
+      z-index: 1;
+
+      display: block;
+
+      width: 72px;
+
+      height: 72px;
+
+      object-fit: contain;
+
+      filter:
+        drop-shadow(
+          0 7px 8px
+          rgba(80,39,28,.22)
+        );
+    }
+
+
+    .schedule-flower::before {
+
+      display: none;
+    }
+
+
+    .schedule-side {
+
+      position: relative;
+
+      min-height: 140px;
+
+      display: flex;
+
+      align-items: center;
+
+      opacity: .38;
+
+      transform:
+        scale(.96);
+
+      transition:
+        opacity .5s ease,
+        transform .5s ease;
+    }
+
+
+    .schedule-side.is-active {
+
+      opacity: 1;
+
+      transform:
+        scale(1);
+    }
+
+
+    .schedule-side.left {
+
+      grid-column: 1;
+
+      justify-content: flex-end;
+
+      padding-right: 36px;
+
+      text-align: right;
+    }
+
+
+    .schedule-side.right {
+
+      grid-column: 3;
+
+      justify-content: flex-start;
+
+      padding-left: 36px;
+
+      text-align: left;
+    }
+
+
+    .schedule-time {
+
+      color: var(--wine);
+
+      font:
+        500
+        clamp(1rem, 3vw, 1.6rem)/1
+        Montserrat,
+        sans-serif;
+    }
+
+
+    .schedule-event {
+
+      color: var(--ink);
+
+      font:
+        500
+        clamp(0.8rem, 2vw, 1.15rem)/1.15
+        Montserrat,
+        sans-serif;
+    }
+
+
+    .schedule-marker {
+
+      position: absolute;
+
+      top: 50%;
+
+      right: -6px;
+
+      width: 12px;
+
+      height: 12px;
+
+      background:
+        var(--gold);
+
+      transform:
+        translateY(-50%)
+        rotate(45deg);
+
+      transition:
+        background .4s ease,
+        transform .4s ease;
+    }
+
+
+    .schedule-side.is-active
+    .schedule-marker {
+
+      background:
+        var(--wine);
+
+      transform:
+        translateY(-50%)
+        rotate(45deg)
+        scale(1.3);
+    }
+
+
+    /* =========================================================
+       VENUE
+    ========================================================= */
+
+    .venue-card {
+
+      width: min(100%, 520px);
+
+      padding:
+        45px 26px;
+    }
+
+
+    /* =========================================================
+       PAGE 4 COMBINED LAYOUT
+    ========================================================= */
+
+    .page-4-content {
+
+      display: flex;
+
+      flex-direction: column;
+
+      align-items: center;
+
+      justify-content: center;
+
+      gap: clamp(10px, 2vh, 18px);
+
+      width: 100%;
+    }
+
+    .page-4-content
+    .section-title {
+
+      margin: 0;
+
+      font-size:
+        clamp(
+          1.35rem,
+          5vw,
+          2.1rem
+        );
+    }
+
+    .page-4-content
+    .event-date {
+
+      margin: 0;
+
+      font-size: .72rem;
+    }
+
+    .page-4-content
+    .countdown {
+
+      margin:
+        clamp(6px, 1.5vh, 14px) 0;
+    }
+
+    .page-4-content
+    .time-box {
+
+      padding:
+        clamp(10px, 2.5vh, 18px)
+        4px;
+    }
+
+    .page-4-content
+    .time-box strong {
+
+      font-size:
+        clamp(
+          1.4rem,
+          5vw,
+          2.2rem
+        );
+    }
+
+    .page-4-content
+    .venue-mini {
+
+      margin-top:
+        clamp(4px, 1vh, 10px);
+    }
+
+    .page-4-content
+    .venue-mini
+    .eyebrow {
+
+      margin:
+        0 0 6px;
+    }
+
+    .page-4-content
+    .venue-mini
+    .venue-name {
+
+      margin: 0;
+
+      font-size:
+        clamp(
+          1.35rem,
+          4.5vw,
+          1.9rem
+        );
+    }
+
+    .page-4-content
+    .venue-mini
+    .action {
+
+      margin-top: 12px;
+
+      padding:
+        10px 18px;
+
+      font-size: .62rem;
+    }
+
+
+    .venue-name {
+
+      color: var(--wine);
+
+      font:
+        500
+        2rem/1.1
+        Cormorant Garamond,
+        serif;
+    }
+
+
+    .venue-address {
+
+      margin:
+        16px auto 0;
+
+      color: var(--muted);
+
+      line-height: 1.7;
+    }
+
+
+    /* =========================================================
+       BUTTON / LINK
+    ========================================================= */
+
+    .action {
+
+      display: inline-block;
+
+      margin-top: 28px;
+
+      padding:
+        14px 24px;
+
+      border:
+        1px solid
+        var(--wine);
+
+      border-radius: 999px;
+
+      color: var(--wine);
+
+      background: transparent;
+
+      text-decoration: none;
+
+      font-size: .69rem;
+
+      font-weight: 600;
+
+      letter-spacing: .15em;
+
+      text-transform: uppercase;
+
+      transition:
+        color .3s ease,
+        background .3s ease,
+        border-color .3s ease,
+        transform .3s ease;
+    }
+
+
+    @media (hover: hover) {
+
+      .action:hover {
+
+        color: #ffffff;
+
+        background:
+          var(--cnc-blue);
+
+        border-color:
+          var(--cnc-blue);
+
+        transform:
+          translateY(-3px);
+      }
+
+    }
+
+
+    /* =========================================================
+       RSVP POPUP
+    ========================================================= */
+
+    .rsvp-overlay {
+
+      position: fixed;
+
+      inset: 0;
+
+      z-index: 100;
+
+      display: grid;
+
+      place-items: center;
+
+      padding: 20px;
+
+      padding:
+        max(20px, env(safe-area-inset-top))
+        max(20px, env(safe-area-inset-right))
+        max(20px, env(safe-area-inset-bottom))
+        max(20px, env(safe-area-inset-left));
+
+      background:
+        rgba(48, 37, 29, .72);
+
+      opacity: 0;
+
+      visibility: hidden;
+
+      transition:
+        opacity .35s ease,
+        visibility .35s ease;
+    }
+
+
+    .rsvp-overlay.is-open {
+
+      opacity: 1;
+
+      visibility: visible;
+    }
+
+
+    .rsvp-popup {
+
+      position: relative;
+
+      width: min(92vw, 420px);
+
+      padding:
+        42px 34px;
+
+      border-radius: 6px;
+
+      text-align: center;
+
+      background:
+        var(--paper);
+
+      box-shadow:
+        0 28px 55px
+        rgba(48, 37, 29, .25);
+
+      transform:
+        translateY(20px)
+        scale(.96);
+
+      transition:
+        transform .35s var(--ease);
+    }
+
+
+    .rsvp-overlay.is-open
+    .rsvp-popup {
+
+      transform:
+        translateY(0)
+        scale(1);
+    }
+
+
+    .rsvp-close {
+
+      position: absolute;
+
+      top: 14px;
+
+      right: 16px;
+
+      padding: 0;
+
+      border: 0;
+
+      color: var(--muted);
+
+      background: transparent;
+
+      font-size: 1.35rem;
+
+      line-height: 1;
+
+      cursor: pointer;
+    }
+
+
+    .rsvp-title {
+
+      margin:
+        0 0 26px;
+
+      color: var(--wine);
+
+      font:
+        500
+        1.7rem/1.1
+        Cormorant Garamond,
+        serif;
+    }
+
+
+    .rsvp-options {
+
+      display: grid;
+
+      gap: 14px;
+
+      margin-bottom: 28px;
+
+      text-align: left;
+    }
+
+
+    .rsvp-option {
+
+      display: flex;
+
+      align-items: center;
+
+      gap: 12px;
+
+      padding: 14px 16px;
+
+      border:
+        1px solid
+        rgba(185,148,85,.45);
+
+      border-radius: 4px;
+
+      cursor: pointer;
+
+      transition:
+        background .25s ease,
+        border-color .25s ease;
+    }
+
+
+    @media (hover: hover) {
+
+      .rsvp-option:hover {
+
+        background:
+          rgba(185,148,85,.08);
+      }
+
+    }
+
+
+    .rsvp-option:has(input:checked) {
+
+      border-color:
+        var(--wine);
+
+      background:
+        rgba(100, 22, 36, .06);
+    }
+
+
+    .rsvp-option input {
+
+      width: 18px;
+
+      height: 18px;
+
+      accent-color:
+        var(--wine);
+
+      cursor: pointer;
+    }
+
+
+    .rsvp-option span {
+
+      font-size: .82rem;
+
+      font-weight: 600;
+
+      letter-spacing: .12em;
+
+      text-transform: uppercase;
+    }
+
+
+    .rsvp-submit {
+
+      width: 100%;
+
+      padding: 15px 24px;
+
+      border:
+        1px solid
+        var(--wine);
+
+      border-radius: 999px;
+
+      color: #ffffff;
+
+      background:
+        var(--wine);
+
+      font-size: .72rem;
+
+      font-weight: 600;
+
+      letter-spacing: .15em;
+
+      text-transform: uppercase;
+
+      transition:
+        opacity .25s ease,
+        color .25s ease,
+        background .25s ease,
+        border-color .25s ease,
+        transform .25s ease;
+    }
+
+
+    .rsvp-submit:disabled {
+
+      opacity: .5;
+
+      cursor: not-allowed;
+    }
+
+
+    @media (hover: hover) {
+
+      .rsvp-submit:not(:disabled):hover {
+
+        opacity: 1;
+
+        background:
+          var(--cnc-blue);
+
+        border-color:
+          var(--cnc-blue);
+
+        transform:
+          translateY(-2px);
+      }
+
+    }
+
+
+    .small-copy {
+
+      max-width: 560px;
+
+      margin: 0 auto;
+
+      font:
+        500
+        .58rem/1.6
+        Montserrat,
+        sans-serif;
+    }
+
+
+    /* =========================================================
+       SCROLL REVEAL
+    ========================================================= */
+
+    .reveal {
+
+      opacity: 0;
+
+      transform:
+        translateY(45px);
+
+      filter:
+        blur(4px);
+
+      transition:
+
+        opacity 1.05s ease,
+
+        transform
+        1.05s var(--ease),
+
+        filter
+        1.05s ease;
+    }
+
+
+    .reveal.is-visible {
+
+      opacity: 1;
+
+      transform:
+        translateY(0);
+
+      filter:
+        blur(0);
+    }
+
+
+    /* =========================================================
+       MUSIC BUTTON
+    ========================================================= */
+
+    .music-button {
+
+      position: fixed;
+
+      right: 20px;
+      bottom: 20px;
+
+      right:
+        max(20px, env(safe-area-inset-right));
+
+      bottom:
+        max(20px, env(safe-area-inset-bottom));
+
+      z-index: 20;
+
+      width: 52px;
+
+      aspect-ratio: 1;
+
+      display: none;
+
+      place-items: center;
+
+      border: 0;
+
+      border-radius: 50%;
+
+      color: var(--gold);
+
+      background:
+        var(--cnc-blue);
+
+      box-shadow:
+        0 9px 25px
+        rgba(23,148,203,.30);
+    }
+
+
+    .invitation.is-visible
+    + .music-button {
+
+      display: grid;
+    }
+
+
+    /* =========================================================
+       DESKTOP INVITATION CANVAS
+
+       Mirrors the centered 450px card structure used by the
+       Sacred Garden reference. Everything in this block begins
+       above the phone breakpoint, so the mobile view is unchanged.
+    ========================================================= */
+
+    @media (min-width: 521px) {
+
+      body {
+
+        background:
+          #ffffff;
+      }
+
+      .video-stage {
+
+        width:
+          min(
+            450px,
+            calc(100vw - 48px)
+          );
+      }
+
+      .invitation {
+
+        background:
+          #ffffff;
+      }
+
+      .paper-scroll {
+
+        width: 450px;
+
+        max-width:
+          calc(100vw - 48px);
+
+        margin:
+          0 auto;
+
+        box-shadow:
+          none;
+      }
+
+      .panel {
+
+        width: 100%;
+
+        min-height: 630px;
+      }
+
+      .page-one-gif-panel {
+
+        height: auto;
+
+        min-height: 0;
+
+        aspect-ratio:
+          9 / 16;
+      }
+
+      .page-one-gif-panel::after {
+
+        background-size:
+          100% 100%;
+      }
+
+      .page-five-panel {
+
+        min-height: 800px;
+      }
+
+      .page-eight-panel {
+
+        min-height: 440px;
+      }
+
+      .schedule-timeline {
+
+        min-height: 525px;
+
+        margin-top: 40px;
+      }
+
+      .schedule-side {
+
+        min-height: 105px;
+      }
+    }
+
+
+    /* =========================================================
+       MOBILE
+    ========================================================= */
+
+    @media (max-width: 520px) {
+
+      .gate {
+
+        padding: 0;
+      }
+
+      .video-stage {
+
+        width: 100vw;
+
+        height: 100vh;
+
+        height: 100svh;
+      }
+
+      .video-frame {
+
+        border-radius: 0;
+      }
+
+      .envelope-stage {
+
+        min-height: 620px;
+      }
+
+      .video-code-box {
+
+        bottom: 6%;
+
+        width: min(70%, 260px);
+      }
+
+      .video-code-fields {
+
+        grid-template-columns: 1fr;
+      }
+
+      .countdown {
+
+        gap: 4px;
+      }
+
+      .page-two-panel {
+
+        min-height: 52svh;
+
+        padding-block:
+          clamp(28px, 6vw, 42px);
+      }
+
+      .page-two-panel > div {
+
+        transform: translateY(10px);
+      }
+
+      .panel:not(.page-two-panel):not(.page-five-panel):not(.page-eight-panel) {
+
+        min-height: 52svh;
+      }
+
+      .page-eight-panel {
+
+        min-height: 42svh;
+      }
+
+      .page-one-gif-panel {
+
+        min-height: 100svh;
+      }
+
+      .page-one-gif-panel::after {
+
+        background-position: center;
+
+        background-size: 100% 100%;
+      }
+
+      .page-one-gif-panel > div {
+
+        align-self: center;
+      }
+
+      .schedule-timeline {
+
+        grid-template-columns:
+          1fr 50px 1fr;
+
+        min-height: 600px;
+
+        margin-top: 50px;
+      }
+
+      .schedule-side {
+
+        min-height: 120px;
+      }
+
+      .schedule-side.left {
+
+        padding-right: 18px;
+      }
+
+      .schedule-side.right {
+
+        padding-left: 18px;
+      }
+
+      .schedule-flower {
+
+        width: 72px;
+
+        height: 72px;
+      }
+
+
+      .schedule-flower img {
+
+        width: 56px;
+
+        height: 56px;
+      }
+    }
+
+
+    /* =========================================================
+       REDUCED MOTION
+    ========================================================= */
+
+    @media (prefers-reduced-motion: reduce) {
+
+      *,
+      *::before,
+      *::after {
+
+        scroll-behavior: auto !important;
+
+        animation-duration:
+          .01ms !important;
+
+        transition-duration:
+          .01ms !important;
+      }
+    }
+
+  </style>
+
+  <!-- Mobile-first implementation notes: ./mobile.md -->
+
+</head>
+
+
+<body>
+
+
+  <!-- =======================================================
+       ACCESS SCREEN
+  ======================================================== -->
+
+  <section
+    class="gate"
+    id="gate"
+    aria-label="Invitation access"
+  >
+
+    <div
+      class="video-stage"
+      id="videoStage"
+    >
+
+      <!-- ===================================================
+           VIDEO ENVELOPE
+      ==================================================== -->
+
+      <div class="video-frame">
+
+        <video
+          class="intro-video"
+          id="introVideo"
+          muted
+          playsinline
+          webkit-playsinline
+          preload="auto"
+          disablepictureinpicture
+          aria-label="Invitation envelope"
+        >
+          <source
+            src="./intro_02.mp4#t=0.001"
+            type="video/mp4"
+          >
+        </video>
+
+        <form
+          class="video-code-box"
+          id="codeForm"
+          autocomplete="off"
+        >
+
+          <div class="video-code-fields">
+            <input
+              class="code-input"
+              id="accessCode"
+              name="accessCode"
+              type="text"
+              inputmode="numeric"
+              pattern="[0-9]*"
+              placeholder="— — —"
+              aria-label="Invitation access code"
+              maxlength="3"
+              autocomplete="off"
+              required
+            >
+          </div>
+
+          <p
+            class="code-message"
+            id="codeMessage"
+            aria-live="polite"
+          ></p>
+
+          <p class="demo-note">
+            Enter Code
+          </p>
+
+        </form>
+
+      </div>
+
+    </div>
+
+  </section>
+
+
+  <!-- =======================================================
+       MAIN INVITATION
+  ======================================================== -->
+
+  <main
+    class="invitation"
+    id="invitation"
+  >
+
+    <div class="paper-scroll">
+
+
+      <!-- ===================================================
+           PAGE 1
+           PARCHMENT
+      ==================================================== -->
+
+      <section class="panel background-card-panel page-one-gif-panel">
+
+        <div>
+
+          <p class="eyebrow reveal font-montserrat">
+            THE COVENANT NATIONS FAMILY OF CHURCHES WARMLY INVITES
+          </p>
+
+          <!--
+            IMPORTANT:
+            Name is empty initially.
+            JavaScript inserts it only after
+            the envelope has opened.
+          -->
+
+          <h1
+            class="display-name reveal"
+            id="mainGuestName"
+          ></h1>
+
+        </div>
+
+      </section>
+
+
+      <!-- ===================================================
+           PAGE 2
+           WHITE
+
+           Covenant Nations Church presents
+      ==================================================== -->
+
+      <section class="panel page-two-panel">
+
+        <div>
+
+          <p class="eyebrow reveal font-montserrat">
+            In Regonition Of The Elevation Of
+          </p>
+
+          <h2 class="event-title names-title reveal">
+
+            Patience Kokundeka <br>
+            Museveni Rwabwogo
+
+          </h2>
+          <p class="eyebrow reveal font-montserrat">
+            To the Episcopal Office of Bishop
+          </p>
+
+          <span class="ampersand reveal">
+            &amp;
+          </span>
+
+        </div>
+
+      </section>
+
+
+      <!-- ===================================================
+           PAGE 3
+           PARCHMENT
+      ==================================================== -->
+
+      <section class="panel background-card-panel page-three-panel">
+
+        <div>
+
+          <p class="eyebrow reveal font-montserrat">
+            MAIN CELEBRANT
+          </p>
+
+          <h2 class="event-title names-title reveal">
+
+            Bishop Dr. <br>
+            Ladonna Osborn
+
+          </h2>
+
+          <p class="eyebrow reveal font-montserrat">
+            International Gospel Fellowship
+          </p>
+
+        </div>
+
+      </section>
+
+
+      <!-- ===================================================
+           PAGE 4
+           WHITE
+      ==================================================== -->
+
+      <section class="panel">
+
+        <div class="page-4-content">
+
+          <h2 class="section-title reveal">
+           Consecration And Investiture Service
+          </h2>
+
+          <p class="event-date save-date-copy reveal font-montserrat">
+
+            23 August 2026
+            ·
+            Kampala, Uganda
+
+          </p>
+
+
+          <div
+            class="countdown reveal"
+            aria-label="Event countdown"
+          >
+
+            <div class="time-box">
+
+              <strong id="days">
+                00
+              </strong>
+
+              <span>
+                Days
+              </span>
+
+            </div>
+
+
+            <div class="time-box">
+
+              <strong id="hours">
+                00
+              </strong>
+
+              <span>
+                Hours
+              </span>
+
+            </div>
+
+
+            <div class="time-box">
+
+              <strong id="minutes">
+                00
+              </strong>
+
+              <span>
+                Minutes
+              </span>
+
+            </div>
+
+
+            <div class="time-box">
+
+              <strong id="seconds">
+                00
+              </strong>
+
+              <span>
+                Seconds
+              </span>
+
+            </div>
+
+          </div>
+
+          <div class="venue-mini reveal">
+
+            <p class="eyebrow font-montserrat">
+              Location
+            </p>
+
+            <h3 class="venue-name">
+              Covenant Hill, Maya
+            </h3>
+
+            <a
+              class="action"
+              href="https://www.google.com/maps/place/Maya+Nature+Resort/@0.2581249,32.4308859,17z/data=!3m1!4b1!4m9!3m8!1s0x177da1c24d3e1d25:0x4ed058f6c4009880!5m2!4m1!1i2!8m2!3d0.2581249!4d32.4334608!16s%2Fg%2F11h5wsxj29?entry=ttu&g_ep=EgoyMDI2MDcyMi4wIKXMDSoASAFQAw%3D%3D"
+              target="_blank"
+              rel="noopener"
+            >
+              Google Maps
+            </a>
+
+          </div>
+
+        </div>
+
+      </section>
+
+
+      <!-- ===================================================
+           PAGE 5
+           PARCHMENT
+      ==================================================== -->
+
+      <section class="panel background-card-panel page-five-panel">
+
+        <div style="width:100%; padding-top: 95px;">
+
+          <h2 class="section-title reveal">
+           Reception Service
+          </h2>
+
+
+          <div
+            class="schedule-timeline"
+            id="scheduleTimeline"
+          >
+
+            <div class="schedule-line"></div>
+
+            <div
+              class="schedule-flower"
+              id="scheduleFlower"
+              aria-hidden="true"
+            >
+              <img
+                src="./flower.png"
+                alt="Golden flower"
+              >
+            </div>
+
+
+            <div
+              class="schedule-side left is-active"
+              data-schedule-index="0"
+            >
+
+              <div class="schedule-time">
+                5pm
+              </div>
+
+            </div>
+
+            <div
+              class="schedule-side right is-active"
+              data-schedule-index="0"
+            >
+
+              <div class="schedule-event">
+                Guest Arrival
+              </div>
+
+            </div>
+
+
+            <div
+              class="schedule-side left"
+              data-schedule-index="1"
+            >
+
+              <div class="schedule-time">
+                6pm
+              </div>
+
+            </div>
+
+            <div
+              class="schedule-side right"
+              data-schedule-index="1"
+            >
+
+              <div class="schedule-event">
+                Prayer
+              </div>
+
+            </div>
+
+
+            <div
+              class="schedule-side left"
+              data-schedule-index="2"
+            >
+
+              <div class="schedule-time">
+                7pm
+              </div>
+
+            </div>
+
+            <div
+              class="schedule-side right"
+              data-schedule-index="2"
+            >
+
+              <div class="schedule-event">
+                Speeches
+              </div>
+            </div>
+
+            <div
+              class="schedule-side left"
+              data-schedule-index="3"
+            >
+
+              <div class="schedule-time">
+                8pm
+              </div>
+
+            </div>
+
+            <div
+              class="schedule-side right"
+              data-schedule-index="3"
+            >
+
+              <div class="schedule-event">
+                Dinner
+              </div>
+
+            </div>
+
+
+            <div
+              class="schedule-side left"
+              data-schedule-index="4"
+            >
+
+              <div class="schedule-time">
+                9pm
+              </div>
+
+            </div>
+
+            <div
+              class="schedule-side right"
+              data-schedule-index="4"
+            >
+
+              <div class="schedule-event">
+                Dance
+              </div>
+
+            </div>
+
+          </div>
+
+        </div>
+
+      </section>
+
+
+      <!-- ===================================================
+           PAGE 8
+           WHITE
+      ==================================================== -->
+
+      <section class="panel plain-white-panel page-eight-panel">
+        <div>
+
+          <h2 class="section-title reveal">
+            Confirm Your Attendance
+          </h2>
+
+          <p class="eyebrow reveal font-montserrat">
+            To help us prepare for a joyful celebration.
+          </p>
+
+          <button
+            class="action reveal"
+            type="button"
+            id="openRsvp"
+          >
+           RSVP
+          </button>
+        </div>
+      </section>
+
+
+      <!-- ===================================================
+           PAGE 9
+           CARD BACKGROUND
+      ==================================================== -->
+
+      <section class="panel background-card-panel page-nine-panel">
+
+        <div>
+
+          <a
+            href="https://covenantnationschurch.org/"
+            target="_blank"
+            rel="noopener noreferrer"
+            aria-label="Visit Covenant Nations Church"
+          >
+            <img
+              class="seal-ornament reveal"
+              src="./CNC_logo.png"
+              alt="Covenant Nations Church seal"
+            >
+          </a>
+
+          <h2 class="section-title reveal">
+            We Hope to See You There
+          </h2>
+
+          <p class="eyebrow font-montserrat">
+            "This is the Lord's doing; it is marvelous in our eyes. This is the day which
+            the Lord has made: we will rejoice and be glad in it." 
+              <br>Psalm 118:23-24
+          </p>
+
+        </div>
+
+      </section>
+
+
+      <!-- ===================================================
+           RSVP POPUP
+      ==================================================== -->
+
+      <div
+        class="rsvp-overlay"
+        id="rsvpOverlay"
+        aria-hidden="true"
+      >
+
+        <form
+          class="rsvp-popup"
+          id="rsvpForm"
+          action="#"
+        >
+
+          <button
+            class="rsvp-close"
+            type="button"
+            id="closeRsvp"
+            aria-label="Close RSVP form"
+          >
+            ×
+          </button>
+
+          <h3 class="rsvp-title">
+            Will you be attending?
+          </h3>
+
+          <div class="rsvp-options">
+
+            <label class="rsvp-option">
+
+              <input
+                type="radio"
+                name="rsvpAnswer"
+                value="YES"
+                required
+              >
+
+              <span>
+                Accepts with pleasure
+              </span>
+
+            </label>
+
+            <label class="rsvp-option">
+
+              <input
+                type="radio"
+                name="rsvpAnswer"
+                value="NO"
+                required
+              >
+
+              <span>
+                Declines with regret
+              </span>
+
+            </label>
+
+          </div>
+
+          <button
+            class="rsvp-submit"
+            type="submit"
+            id="rsvpSubmit"
+            disabled
+          >
+            Submit RSVP
+          </button>
+
+        </form>
+
+      </div>
+
+
+    </div>
+
+  </main>
+
+
+  <!-- =======================================================
+       PAGE FOOTER
+  ======================================================== -->
+
+  <footer class="page-footer">
+    <p>
+      Designed by
+        Kaizen Supplies Ltd
+    </p>
+  </footer>
+
+
+  <!-- =======================================================
+       MUSIC BUTTON
+  ======================================================== -->
+
+  <button
+    class="music-button"
+    id="musicButton"
+    type="button"
+    aria-label="Toggle music"
+  >
+    ♪
+  </button>
+
+
+  <audio
+    id="music"
+    loop
+    src="./SWTLHD.mp3"
+  ></audio>
+
+
+  <!-- =======================================================
+       JAVASCRIPT
+  ======================================================== -->
+
+  <script>
+
+
+    /* =======================================================
+       DEMO GUEST DATABASE
+
+       IMPORTANT:
+       This is only for testing.
+
+       In production, move validation to
+       a backend/database/API.
+    ======================================================== */
+
+    const demoGuests = {
+
+      "002":
+        "Mr. Mwesigwa Mark & Family",
+
+      "001":
+        "Seth Nuwewenka",
+
+      "003":
+        "Ms. Sarah Namusoke"
+
+    };
+
+
+    /* =======================================================
+       ELEMENT REFERENCES
+    ======================================================== */
+
+    const form =
+      document.getElementById("codeForm");
+
+    const input =
+      document.getElementById("accessCode");
+
+    const message =
+      document.getElementById("codeMessage");
+
+    const stage =
+      document.getElementById("videoStage");
+
+    const introVideo =
+      document.getElementById("introVideo");
+
+    const gate =
+      document.getElementById("gate");
+
+    const invitation =
+      document.getElementById("invitation");
+
+    const mainName =
+      document.getElementById("mainGuestName");
+
+
+    /* =======================================================
+       RSVP POPUP
+    ======================================================== */
+
+    const rsvpOverlay =
+      document.getElementById("rsvpOverlay");
+
+    const openRsvp =
+      document.getElementById("openRsvp");
+
+    const closeRsvp =
+      document.getElementById("closeRsvp");
+
+    const rsvpForm =
+      document.getElementById("rsvpForm");
+
+    const rsvpSubmit =
+      document.getElementById("rsvpSubmit");
+
+    const rsvpEmail =
+      "events@covenantnationschurch.org";
+
+
+    function openRsvpPopup() {
+
+      rsvpOverlay.classList.add(
+        "is-open"
+      );
+
+      rsvpOverlay.setAttribute(
+        "aria-hidden",
+        "false"
+      );
+
+      openRsvp.setAttribute(
+        "aria-expanded",
+        "true"
+      );
+
+    }
+
+
+    function closeRsvpPopup() {
+
+      rsvpOverlay.classList.remove(
+        "is-open"
+      );
+
+      rsvpOverlay.setAttribute(
+        "aria-hidden",
+        "true"
+      );
+
+      openRsvp.setAttribute(
+        "aria-expanded",
+        "false"
+      );
+
+      rsvpForm.reset();
+
+      rsvpSubmit.disabled = true;
+
+    }
+
+
+    if (openRsvp) {
+
+      openRsvp.addEventListener(
+        "click",
+        openRsvpPopup
+      );
+
+    }
+
+
+    if (closeRsvp) {
+
+      closeRsvp.addEventListener(
+        "click",
+        closeRsvpPopup
+      );
+
+    }
+
+
+    if (rsvpOverlay) {
+
+      rsvpOverlay.addEventListener(
+        "click",
+        (event) => {
+
+          if (
+            event.target ===
+            rsvpOverlay
+          ) {
+            closeRsvpPopup();
+          }
+
+        }
+      );
+
+    }
+
+
+    if (rsvpForm) {
+
+      rsvpForm.addEventListener(
+        "change",
+        () => {
+
+          const answer =
+            rsvpForm
+              .querySelector(
+                'input[name="rsvpAnswer"]:checked'
+              )
+              ?.value;
+
+          rsvpSubmit.disabled =
+            !answer;
+
+        }
+      );
+
+
+      rsvpForm.addEventListener(
+        "submit",
+        (event) => {
+
+          event.preventDefault();
+
+
+          const answer =
+            rsvpForm
+              .querySelector(
+                'input[name="rsvpAnswer"]:checked'
+              )
+              ?.value;
+
+
+          if (!answer) {
+            return;
+          }
+
+
+          const guestName =
+            mainName.textContent.trim() ||
+            "Guest";
+
+          const subject =
+            encodeURIComponent(
+              `RSVP Response from ${guestName}`
+            );
+
+          const body =
+            encodeURIComponent(
+              `Guest: ${guestName}\n` +
+              `RSVP: ${answer}\n\n` +
+              `Responded via the CNC invitation.`
+            );
+
+
+          window.location.href =
+            `mailto:${rsvpEmail}?subject=${subject}&body=${body}`;
+
+
+          closeRsvpPopup();
+
+        }
+      );
+
+    }
+
+
+    /* =======================================================
+       AUTOMATIC CODE VALIDATION
+    ======================================================== */
+
+    let isOpening = false;
+
+    form.addEventListener(
+      "submit",
+      (event) => {
+
+        event.preventDefault();
+
+      }
+    );
+
+
+    input.addEventListener(
+      "input",
+      async () => {
+
+        if (isOpening) {
+          return;
+        }
+
+
+        const code =
+          input.value
+            .trim()
+            .toUpperCase();
+
+
+        if (code.length === 0) {
+
+          message.textContent = "";
+
+          return;
+        }
+
+
+        if (code.length < 3) {
+
+          message.textContent =
+            "The guest code must contain 3 digits.";
+
+          return;
+        }
+
+
+        const guestName =
+          await validateCode(code);
+
+
+        /* =================================================
+           INVALID CODE
+        ================================================= */
+
+        if (!guestName) {
+
+          message.textContent =
+            "That invitation code was not found.";
+
+          input.select();
+
+          return;
+        }
+
+
+        /* =================================================
+           VALID CODE
+
+           Start opening sequence.
+        ================================================= */
+
+        isOpening = true;
+
+        message.textContent = "";
+
+        /*
+          Dismiss the iPhone keyboard before revealing the invitation so
+          Safari restores the normal visual viewport.
+        */
+
+        input.blur();
+
+        /*
+          Replay the envelope video first.
+          iOS permits fewer media starts from one user action, so the
+          visible introduction takes priority over the background music.
+        */
+
+        if (introVideo) {
+
+          introVideo.currentTime = 0;
+
+          try {
+
+            await introVideo.play();
+
+          }
+
+          catch (error) {
+
+            /* The invitation still opens if video playback is blocked. */
+
+          }
+
+        }
+
+        /* Start the celebration music after the intro has begun */
+
+        startMusic();
+
+        mainName.textContent =
+          guestName;
+
+
+        /* Hide the code overlay */
+
+        stage.classList.add(
+          "is-opening"
+        );
+
+
+        /* =================================================
+           VIDEO STARTS LEAVING
+        ================================================= */
+
+        window.setTimeout(
+          () => {
+
+            stage.classList.add(
+              "is-leaving"
+            );
+
+          },
+          1700
+        );
+
+
+        /* =================================================
+           SHOW MAIN INVITATION
+        ================================================= */
+
+        window.setTimeout(
+          () => {
+
+            if (introVideo) {
+              introVideo.pause();
+            }
+
+            invitation.classList.add(
+              "is-visible"
+            );
+
+            gate.classList.add(
+              "is-gone"
+            );
+
+
+            /* Enable page scrolling */
+
+            document.body.style.overflow =
+              "auto";
+
+
+            /* Start at top */
+
+            window.scrollTo(
+              {
+                top: 0,
+                behavior: "instant"
+              }
+            );
+
+
+            /* Animate first page */
+
+            revealHero();
+
+            /* Position the animated schedule flower */
+
+            window.requestAnimationFrame(
+              updateScheduleTimeline
+            );
+
+          },
+          2100
+        );
+
+
+        /* =================================================
+           REMOVE ACCESS SCREEN
+        ================================================= */
+
+        window.setTimeout(
+          () => {
+
+            gate.remove();
+
+          },
+          3000
+        );
+
+      }
+    );
+
+
+    /* =======================================================
+       VALIDATE INVITATION CODE
+    ======================================================== */
+
+    async function validateCode(code) {
+
+
+      /*
+        DEMO VALIDATION
+
+        Replace this with your backend API
+        when you move to production.
+      */
+
+      return demoGuests[code] || null;
+
+
+      /*
+        PRODUCTION EXAMPLE:
+
+        const response = await fetch(
+          "/api/invitations/validate",
+          {
+            method: "POST",
+
+            headers: {
+              "Content-Type":
+                "application/json"
+            },
+
+            body: JSON.stringify({
+              code: code
+            })
+          }
+        );
+
+
+        if (!response.ok) {
+          return null;
+        }
+
+
+        const data =
+          await response.json();
+
+
+        return data.guestName;
+      */
+
+    }
+
+
+    /* =======================================================
+       SCROLL REVEAL OBSERVER
+    ======================================================== */
+
+    const revealObserver =
+      new IntersectionObserver(
+
+        (entries) => {
+
+          entries.forEach(
+            (entry) => {
+
+              if (
+                !entry.isIntersecting
+              ) {
+                return;
+              }
+
+
+              entry.target.classList.add(
+                "is-visible"
+              );
+
+
+              revealObserver.unobserve(
+                entry.target
+              );
+
+            }
+          );
+
+        },
+
+        {
+          threshold: .22,
+
+          rootMargin:
+            "0px 0px -8% 0px"
+        }
+
+      );
+
+
+    /* =======================================================
+       REGISTER REVEAL ELEMENTS
+    ======================================================== */
+
+    document
+      .querySelectorAll(".reveal")
+      .forEach(
+        (element) => {
+
+          revealObserver.observe(
+            element
+          );
+
+        }
+      );
+
+
+
+    /* =======================================================
+       FIRST PAGE REVEAL
+    ======================================================== */
+
+    function revealHero() {
+
+      document
+        .querySelectorAll(
+          ".panel:first-child .reveal"
+        )
+        .forEach(
+          (element, index) => {
+
+            window.setTimeout(
+              () => {
+
+                element.classList.add(
+                  "is-visible"
+                );
+
+              },
+
+              180 +
+              index * 210
+            );
+
+          }
+        );
+
+    }
+
+
+    /* =======================================================
+       ANIMATED SCHEDULE TIMELINE
+    ======================================================== */
+
+    const scheduleTimeline =
+      document.getElementById(
+        "scheduleTimeline"
+      );
+
+    const scheduleFlower =
+      document.getElementById(
+        "scheduleFlower"
+      );
+
+    const scheduleSides =
+      document.querySelectorAll(
+        ".schedule-side"
+      );
+
+    let scheduleTicking = false;
+
+
+    function updateScheduleTimeline() {
+
+      if (
+        !scheduleTimeline ||
+        !scheduleFlower
+      ) {
+        return;
+      }
+
+      const timelineRect =
+        scheduleTimeline
+          .getBoundingClientRect();
+
+      const viewportCenter =
+        window.innerHeight * .5;
+
+      let scheduleProgress =
+        (
+          viewportCenter -
+          timelineRect.top
+        )
+        /
+        timelineRect.height;
+
+      scheduleProgress =
+        Math.max(
+          0,
+          Math.min(
+            1,
+            scheduleProgress
+          )
+        );
+
+      scheduleFlower.style.top =
+        `${scheduleProgress * 100}%`;
+
+      const activeScheduleIndex =
+        Math.round(
+          scheduleProgress * 4
+        );
+
+      scheduleSides.forEach(
+        (side) => {
+
+          const sideIndex =
+            Number(
+              side.dataset
+                .scheduleIndex
+            );
+
+          side.classList.toggle(
+            "is-active",
+            sideIndex ===
+              activeScheduleIndex
+          );
+
+        }
+      );
+
+      scheduleTicking = false;
+
+    }
+
+
+    function requestScheduleUpdate() {
+
+      if (scheduleTicking) {
+        return;
+      }
+
+      window.requestAnimationFrame(
+        updateScheduleTimeline
+      );
+
+      scheduleTicking = true;
+
+    }
+
+
+    window.addEventListener(
+      "scroll",
+      requestScheduleUpdate,
+      {
+        passive: true
+      }
+    );
+
+    window.addEventListener(
+      "resize",
+      requestScheduleUpdate
+    );
+
+    updateScheduleTimeline();
+
+
+    /* =======================================================
+       COUNTDOWN
+    ======================================================== */
+
+    const eventDate =
+      new Date(
+        "2026-08-23T16:00:00+03:00"
+      ).getTime();
+
+
+    function updateCountdown() {
+
+
+      const difference =
+        Math.max(
+          0,
+          eventDate -
+          Date.now()
+        );
+
+
+      const day =
+        86400000;
+
+      const hour =
+        3600000;
+
+      const minute =
+        60000;
+
+
+      document.getElementById(
+        "days"
+      ).textContent =
+
+        String(
+          Math.floor(
+            difference / day
+          )
+        ).padStart(
+          2,
+          "0"
+        );
+
+
+      document.getElementById(
+        "hours"
+      ).textContent =
+
+        String(
+          Math.floor(
+            (difference % day) /
+            hour
+          )
+        ).padStart(
+          2,
+          "0"
+        );
+
+
+      document.getElementById(
+        "minutes"
+      ).textContent =
+
+        String(
+          Math.floor(
+            (difference % hour) /
+            minute
+          )
+        ).padStart(
+          2,
+          "0"
+        );
+
+
+      document.getElementById(
+        "seconds"
+      ).textContent =
+
+        String(
+          Math.floor(
+            (difference % minute) /
+            1000
+          )
+        ).padStart(
+          2,
+          "0"
+        );
+
+    }
+
+
+    /* Run countdown immediately */
+
+    updateCountdown();
+
+
+    /* Update every second */
+
+    window.setInterval(
+      updateCountdown,
+      1000
+    );
+
+
+    /* =======================================================
+       MUSIC
+    ======================================================== */
+
+    const musicButton =
+      document.getElementById(
+        "musicButton"
+      );
+
+    const music =
+      document.getElementById(
+        "music"
+      );
+
+    async function startMusic() {
+
+      if (!music) {
+        return;
+      }
+
+      try {
+
+        await music.play();
+
+        musicButton.textContent =
+          "Ⅱ";
+
+      }
+
+      catch (error) {
+
+        /*
+          Some browsers can still block automatic playback.
+          In that case the music button remains available.
+        */
+
+        musicButton.textContent =
+          "♪";
+
+      }
+
+    }
+
+
+    musicButton.addEventListener(
+      "click",
+      async () => {
+
+
+        /*
+          If you have not added the
+          audio element yet.
+        */
+
+        if (!music) {
+
+          alert(
+            "Add your licensed music file beside cnc.html as SWTLHD.mp3."
+          );
+
+          return;
+        }
+
+
+        /* Play music */
+
+        if (music.paused) {
+
+          await startMusic();
+
+        }
+
+
+        /* Pause music */
+
+        else {
+
+          music.pause();
+
+          musicButton.textContent =
+            "♪";
+
+        }
+
+      }
+    );
+
+
+  </script>
+
+</body>
+</html>
