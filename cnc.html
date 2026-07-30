@@ -1173,7 +1173,7 @@
     }
 
 
-    /* Keep the paper-card artwork equally sized on pages three, five, and seven. */
+    /* Keep the paper-card artwork equally sized on pages three, five, and nine. */
     .page-three-panel::after,
     .page-five-panel::after,
     .page-nine-panel::after {
@@ -1486,7 +1486,7 @@
     /* =========================================================
        SHARED HEADING SIZE
 
-       Matches the schedule-time size for these key headings.
+       Keeps these key headings at a consistent responsive size.
     ========================================================= */
 
     #mainGuestName,
@@ -1554,220 +1554,6 @@
       letter-spacing: .12em;
 
       text-transform: uppercase;
-    }
-
-
-    /* =========================================================
-       SCHEDULE
-    ========================================================= */
-
-    .schedule-timeline {
-
-      position: relative;
-
-      display: grid;
-
-      grid-template-columns:
-        1fr 70px 1fr;
-
-      width: min(100%, 620px);
-
-      min-height: 700px;
-
-      margin:
-        60px auto 0;
-    }
-
-
-    .schedule-line {
-
-      position: absolute;
-
-      top: 0;
-
-      bottom: 0;
-
-      left: 50%;
-
-      width: 1px;
-
-      background:
-        rgba(122,31,43,.38);
-
-      transform:
-        translateX(-50%);
-    }
-
-
-    .schedule-flower {
-
-      position: absolute;
-
-      top: 0;
-
-      left: 50%;
-
-      z-index: 2;
-
-      display: grid;
-
-      width: 90px;
-
-      height: 90px;
-
-      place-items: center;
-
-      pointer-events: none;
-
-      transform:
-        translate(-50%, -50%);
-
-      transition:
-        top .15s linear;
-    }
-
-
-    .schedule-flower img {
-
-      position: relative;
-
-      z-index: 1;
-
-      display: block;
-
-      width: 72px;
-
-      height: 72px;
-
-      object-fit: contain;
-
-      filter:
-        drop-shadow(
-          0 7px 8px
-          rgba(80,39,28,.22)
-        );
-    }
-
-
-    .schedule-flower::before {
-
-      display: none;
-    }
-
-
-    .schedule-side {
-
-      position: relative;
-
-      min-height: 140px;
-
-      display: flex;
-
-      align-items: center;
-
-      opacity: .38;
-
-      transform:
-        scale(.96);
-
-      transition:
-        opacity .5s ease,
-        transform .5s ease;
-    }
-
-
-    .schedule-side.is-active {
-
-      opacity: 1;
-
-      transform:
-        scale(1);
-    }
-
-
-    .schedule-side.left {
-
-      grid-column: 1;
-
-      justify-content: flex-end;
-
-      padding-right: 36px;
-
-      text-align: right;
-    }
-
-
-    .schedule-side.right {
-
-      grid-column: 3;
-
-      justify-content: flex-start;
-
-      padding-left: 36px;
-
-      text-align: left;
-    }
-
-
-    .schedule-time {
-
-      color: var(--wine);
-
-      font:
-        500
-        clamp(1rem, 3vw, 1.6rem)/1
-        Montserrat,
-        sans-serif;
-    }
-
-
-    .schedule-event {
-
-      color: var(--ink);
-
-      font:
-        500
-        clamp(0.8rem, 2vw, 1.15rem)/1.15
-        Montserrat,
-        sans-serif;
-    }
-
-
-    .schedule-marker {
-
-      position: absolute;
-
-      top: 50%;
-
-      right: -6px;
-
-      width: 12px;
-
-      height: 12px;
-
-      background:
-        var(--gold);
-
-      transform:
-        translateY(-50%)
-        rotate(45deg);
-
-      transition:
-        background .4s ease,
-        transform .4s ease;
-    }
-
-
-    .schedule-side.is-active
-    .schedule-marker {
-
-      background:
-        var(--wine);
-
-      transform:
-        translateY(-50%)
-        rotate(45deg)
-        scale(1.3);
     }
 
 
@@ -2414,17 +2200,6 @@
         min-height: 440px;
       }
 
-      .schedule-timeline {
-
-        min-height: 525px;
-
-        margin-top: 40px;
-      }
-
-      .schedule-side {
-
-        min-height: 105px;
-      }
     }
 
 
@@ -2488,7 +2263,7 @@
         transform: translateY(10px);
       }
 
-      .panel:not(.page-two-panel):not(.page-five-panel):not(.page-eight-panel) {
+      .panel:not(.page-two-panel):not(.page-eight-panel) {
 
         min-height: 52svh;
       }
@@ -2515,45 +2290,6 @@
         align-self: center;
       }
 
-      .schedule-timeline {
-
-        grid-template-columns:
-          1fr 50px 1fr;
-
-        min-height: 600px;
-
-        margin-top: 50px;
-      }
-
-      .schedule-side {
-
-        min-height: 120px;
-      }
-
-      .schedule-side.left {
-
-        padding-right: 18px;
-      }
-
-      .schedule-side.right {
-
-        padding-left: 18px;
-      }
-
-      .schedule-flower {
-
-        width: 72px;
-
-        height: 72px;
-      }
-
-
-      .schedule-flower img {
-
-        width: 56px;
-
-        height: 56px;
-      }
     }
 
     /* =========================================================
@@ -2561,7 +2297,6 @@
     ========================================================= */
 
     .panel.page-three-panel,
-    .panel.page-five-panel,
     .panel.page-nine-panel {
 
       min-height: 0 !important;
@@ -2569,14 +2304,56 @@
       aspect-ratio: 5 / 7;
     }
 
-    .page-five-panel > div {
+    .page-three-panel > div {
 
-      padding:
-        clamp(38px, 7vw, 50px)
-        clamp(16px, 5vw, 28px);
+      align-self: center;
+
+      justify-self: center;
+
+      width: min(72%, 310px);
+
+      padding: 0;
     }
 
-    .page-five-panel .section-title,
+    .page-three-panel .event-title {
+
+      font-size:
+        clamp(
+          1.45rem,
+          4.7vw,
+          1.9rem
+        );
+
+      line-height: 1.05;
+    }
+
+    .page-three-panel .eyebrow {
+
+      width: 100%;
+
+      margin:
+        clamp(12px, 3vw, 18px)
+        auto;
+
+      padding-inline:
+        clamp(
+          14px,
+          4vw,
+          20px
+        );
+
+      font-size:
+        clamp(
+          .58rem,
+          1.8vw,
+          .68rem
+        );
+
+      line-height: 1.45;
+
+      letter-spacing: .045em;
+    }
+
     .page-nine-panel .section-title {
 
       margin-bottom:
@@ -2592,26 +2369,298 @@
       line-height: 1.05;
     }
 
+    /* Keep page nine's closing message inside the clear center of the artwork. */
+    .page-nine-panel > div {
+
+      align-self: center;
+
+      justify-self: center;
+
+      width: min(72%, 310px);
+
+      padding: 0;
+    }
+
+    .page-nine-panel .seal-ornament {
+
+      width:
+        clamp(
+          76px,
+          21vw,
+          104px
+        );
+
+      margin-bottom:
+        clamp(12px, 3vw, 18px);
+    }
+
+    .page-nine-panel .section-title {
+
+      margin:
+        0 auto
+        clamp(12px, 3vw, 18px);
+
+      font-size:
+        clamp(
+          1.65rem,
+          5.4vw,
+          2.2rem
+        );
+
+      line-height: 1.05;
+    }
+
+    .page-nine-message {
+
+      width: 100%;
+
+      max-width: 310px;
+
+      margin: 0 auto;
+
+      padding-inline:
+        clamp(
+          14px,
+          4vw,
+          20px
+        );
+
+      font-size:
+        clamp(
+          .58rem,
+          1.8vw,
+          .68rem
+        );
+
+      font-weight: 500;
+
+      line-height: 1.65;
+
+      letter-spacing: .045em;
+
+      text-transform: none;
+    }
+
+    .page-nine-citation {
+
+      display: inline-block;
+
+      margin-top: .55em;
+
+      font-weight: 600;
+
+      letter-spacing: .08em;
+    }
+
+    /* =========================================================
+       PAGE 5 RECEPTION SCHEDULE
+    ========================================================= */
+
+    .panel.page-five-panel {
+
+      min-height: 0 !important;
+
+      aspect-ratio: 5 / 7;
+    }
+
+    .page-five-panel > div {
+
+      align-self: center;
+
+      justify-self: center;
+
+      width: min(72%, 310px);
+
+      padding: 0;
+    }
+
+    .page-five-panel .section-title {
+
+      margin:
+        0 auto
+        clamp(12px, 3vw, 18px);
+
+      font-size:
+        clamp(
+          1.45rem,
+          4.7vw,
+          1.9rem
+        );
+
+      line-height: 1.05;
+    }
+
     .page-five-panel .schedule-timeline {
+
+      position: relative;
+
+      display: grid;
+
+      grid-template-columns:
+        1fr
+        clamp(34px, 10vw, 44px)
+        1fr;
+
+      width: 100%;
 
       min-height:
         clamp(
-          330px,
-          82vw,
-          430px
+          260px,
+          64vw,
+          300px
         );
 
-      margin-top: 0;
+      margin: 0;
+    }
+
+    .page-five-panel .schedule-line {
+
+      position: absolute;
+
+      top: 0;
+
+      bottom: 0;
+
+      left: 50%;
+
+      width: 1px;
+
+      background:
+        rgba(122,31,43,.38);
+
+      transform:
+        translateX(-50%);
+    }
+
+    .page-five-panel .schedule-flower {
+
+      position: absolute;
+
+      top: 0;
+
+      left: 50%;
+
+      z-index: 2;
+
+      display: grid;
+
+      width:
+        clamp(
+          44px,
+          12vw,
+          52px
+        );
+
+      height:
+        clamp(
+          44px,
+          12vw,
+          52px
+        );
+
+      place-items: center;
+
+      pointer-events: none;
+
+      transform:
+        translate(-50%, -50%);
+
+      transition:
+        top .15s linear;
+    }
+
+    .page-five-panel .schedule-flower img {
+
+      display: block;
+
+      width:
+        clamp(
+          36px,
+          10vw,
+          44px
+        );
+
+      height:
+        clamp(
+          36px,
+          10vw,
+          44px
+        );
+
+      object-fit: contain;
+
+      filter:
+        drop-shadow(
+          0 7px 8px
+          rgba(80,39,28,.22)
+        );
     }
 
     .page-five-panel .schedule-side {
 
+      position: relative;
+
       min-height:
         clamp(
-          66px,
-          16.4vw,
-          86px
+          52px,
+          12.8vw,
+          60px
         );
+
+      display: flex;
+
+      align-items: center;
+
+      opacity: .38;
+
+      transform:
+        scale(.96);
+
+      transition:
+        opacity .5s ease,
+        transform .5s ease;
+    }
+
+    .page-five-panel .schedule-side.is-active {
+
+      opacity: 1;
+
+      transform:
+        scale(1);
+    }
+
+    .page-five-panel .schedule-side.left {
+
+      grid-column: 1;
+
+      justify-content: flex-end;
+
+      padding-right:
+        clamp(8px, 2.5vw, 12px);
+
+      text-align: right;
+    }
+
+    .page-five-panel .schedule-side.right {
+
+      grid-column: 3;
+
+      justify-content: flex-start;
+
+      padding-left:
+        clamp(8px, 2.5vw, 12px);
+
+      text-align: left;
+    }
+
+    .page-five-panel .schedule-time,
+    .page-five-panel .schedule-event {
+
+      font:
+        500
+        clamp(.58rem, 1.8vw, .68rem)/1.25
+        Montserrat,
+        sans-serif;
     }
 
 
@@ -2677,7 +2726,7 @@
           aria-label="Invitation envelope"
         >
           <source
-            src="./intro_02.mp4#t=0.001"
+            src="./code_page.mp4#t=0.001"
             type="video/mp4"
           >
         </video>
@@ -2786,6 +2835,7 @@
             Museveni Rwabwogo
 
           </h2>
+
           <p class="eyebrow reveal font-montserrat">
             To the Episcopal Office of Bishop
           </p>
@@ -2800,40 +2850,11 @@
 
 
       <!-- ===================================================
-           PAGE 3
-           PARCHMENT
-      ==================================================== -->
-
-      <section class="panel background-card-panel page-three-panel">
-
-        <div>
-
-          <p class="eyebrow reveal font-montserrat">
-            MAIN CELEBRANT
-          </p>
-
-          <h2 class="event-title names-title reveal">
-
-            Bishop Dr. <br>
-            Ladonna Osborn
-
-          </h2>
-
-          <p class="eyebrow reveal font-montserrat">
-            International Gospel Fellowship
-          </p>
-
-        </div>
-
-      </section>
-
-
-      <!-- ===================================================
            PAGE 4
            WHITE
       ==================================================== -->
 
-      <section class="panel">
+      <section class="panel plain-white-panel">
 
         <div class="page-4-content">
 
@@ -2935,8 +2956,37 @@
 
 
       <!-- ===================================================
-           PAGE 5
+           PAGE 3
            PARCHMENT
+      ==================================================== -->
+
+      <section class="panel background-card-panel page-three-panel">
+
+        <div>
+
+          <p class="eyebrow reveal font-montserrat">
+            MAIN CELEBRANT
+          </p>
+
+          <h2 class="event-title names-title reveal">
+
+            Bishop Dr. <br>
+            Ladonna Osborn
+
+          </h2>
+
+          <p class="eyebrow reveal font-montserrat">
+            International Gospel Fellowship
+          </p>
+
+        </div>
+
+      </section>
+
+
+      <!-- ===================================================
+           PAGE 5
+           RECEPTION SCHEDULE
       ==================================================== -->
 
       <section class="panel background-card-panel page-five-panel">
@@ -2944,9 +2994,8 @@
         <div>
 
           <h2 class="section-title reveal">
-           Reception Service
+            Reception Service
           </h2>
-
 
           <div
             class="schedule-timeline"
@@ -2962,73 +3011,59 @@
             >
               <img
                 src="./flower.png"
-                alt="Golden flower"
+                alt=""
               >
             </div>
-
 
             <div
               class="schedule-side left is-active"
               data-schedule-index="0"
             >
-
               <div class="schedule-time">
                 5pm
               </div>
-
             </div>
 
             <div
               class="schedule-side right is-active"
               data-schedule-index="0"
             >
-
               <div class="schedule-event">
                 Guest Arrival
               </div>
-
             </div>
-
 
             <div
               class="schedule-side left"
               data-schedule-index="1"
             >
-
               <div class="schedule-time">
                 6pm
               </div>
-
             </div>
 
             <div
               class="schedule-side right"
               data-schedule-index="1"
             >
-
               <div class="schedule-event">
                 Prayer
               </div>
-
             </div>
-
 
             <div
               class="schedule-side left"
               data-schedule-index="2"
             >
-
               <div class="schedule-time">
                 7pm
               </div>
-
             </div>
 
             <div
               class="schedule-side right"
               data-schedule-index="2"
             >
-
               <div class="schedule-event">
                 Speeches
               </div>
@@ -3038,45 +3073,36 @@
               class="schedule-side left"
               data-schedule-index="3"
             >
-
               <div class="schedule-time">
                 8pm
               </div>
-
             </div>
 
             <div
               class="schedule-side right"
               data-schedule-index="3"
             >
-
               <div class="schedule-event">
                 Dinner
               </div>
-
             </div>
-
 
             <div
               class="schedule-side left"
               data-schedule-index="4"
             >
-
               <div class="schedule-time">
                 9pm
               </div>
-
             </div>
 
             <div
               class="schedule-side right"
               data-schedule-index="4"
             >
-
               <div class="schedule-event">
                 Dance
               </div>
-
             </div>
 
           </div>
@@ -3139,10 +3165,10 @@
             We Hope to See You There
           </h2>
 
-          <p class="eyebrow font-montserrat">
+          <p class="eyebrow font-montserrat page-nine-message">
             "This is the Lord's doing; it is marvelous in our eyes. This is the day which
-            the Lord has made: we will rejoice and be glad in it." 
-              <br>Psalm 118:23-24
+            the Lord has made: we will rejoice and be glad in it."
+            <br><span class="page-nine-citation">Psalm 118:23-24</span>
           </p>
 
         </div>
@@ -3583,9 +3609,7 @@
         input.blur();
 
         /*
-          Replay the envelope video first.
-          iOS permits fewer media starts from one user action, so the
-          visible introduction takes priority over the background music.
+          Replay the envelope video before opening the invitation.
         */
 
         if (introVideo) {
@@ -3593,17 +3617,12 @@
           introVideo.currentTime = 0;
 
           try {
-
             await introVideo.play();
-
           }
 
           catch (error) {
-
             /* The invitation still opens if video playback is blocked. */
-
           }
-
         }
 
         /* Start the celebration music after the intro has begun */
@@ -3888,20 +3907,17 @@
       const viewportCenter =
         window.innerHeight * .5;
 
-      let scheduleProgress =
-        (
-          viewportCenter -
-          timelineRect.top
-        )
-        /
-        timelineRect.height;
-
-      scheduleProgress =
+      const scheduleProgress =
         Math.max(
           0,
           Math.min(
             1,
-            scheduleProgress
+            (
+              viewportCenter -
+              timelineRect.top
+            )
+            /
+            timelineRect.height
           )
         );
 
@@ -3932,7 +3948,6 @@
       );
 
       scheduleTicking = false;
-
     }
 
 
@@ -3942,12 +3957,11 @@
         return;
       }
 
+      scheduleTicking = true;
+
       window.requestAnimationFrame(
         updateScheduleTimeline
       );
-
-      scheduleTicking = true;
-
     }
 
 
