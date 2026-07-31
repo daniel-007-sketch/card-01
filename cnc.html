@@ -3967,6 +3967,44 @@
 
           try {
 
+            const submission =
+              new FormData();
+
+            submission.append(
+              "name",
+              guestName
+            );
+
+            submission.append(
+              "email",
+              guestEmail
+            );
+
+            submission.append(
+              "_replyto",
+              guestEmail
+            );
+
+            submission.append(
+              "_subject",
+              subject
+            );
+
+            submission.append(
+              "message",
+              body
+            );
+
+            submission.append(
+              "_template",
+              "table"
+            );
+
+            submission.append(
+              "_captcha",
+              "false"
+            );
+
             const response =
               await fetch(
                 `https://formsubmit.co/ajax/${rsvpEmail}`,
@@ -3974,26 +4012,32 @@
                   method: "POST",
 
                   headers: {
-                    "Content-Type":
-                      "application/json",
-
                     "Accept":
                       "application/json"
                   },
 
-                  body: JSON.stringify({
-                    name: guestName,
-                    email: guestEmail,
-                    _replyto: guestEmail,
-                    _subject: subject,
-                    message: body,
-                    _template: "table"
-                  })
+                  body: submission
                 }
               );
 
-            const result =
-              await response.json();
+            const responseText =
+              await response.text();
+
+            let result = {};
+
+
+            try {
+
+              result =
+                JSON.parse(responseText);
+
+            }
+
+            catch (parseError) {
+
+              result.message =
+                responseText;
+            }
 
 
             if (
@@ -4027,6 +4071,7 @@
           catch (error) {
 
             rsvpStatus.textContent =
+              error.message ||
               "We could not send your RSVP. Please try again.";
 
             rsvpStatus.classList.add(
