@@ -1214,6 +1214,13 @@
       text-align: center;
     }
 
+    .page-one-gif-panel .section-title {
+
+      position: relative;
+
+      top: -12px;
+    }
+
     .page-one-scroll-cue {
 
       position: absolute;
@@ -1462,9 +1469,9 @@
 
       font-size:
         clamp(
-          .85rem,
-          2.7vw,
-          1.5rem
+          .78rem,
+          2.4vw,
+          1.35rem
         ) !important;
 
       font-weight: 700;
@@ -1484,6 +1491,18 @@
         clamp(1.8rem, 6.5vw, 3.2rem)/1
         Cormorant Garamond,
         serif;
+    }
+
+    #mainGuestName.font-cinzel-decorative.is-long-name {
+
+      font-size:
+        clamp(
+          .9rem,
+          2.8vw,
+          1.35rem
+        ) !important;
+
+      line-height: 1.2;
     }
 
     .font-cinzel-decorative {
@@ -1658,6 +1677,60 @@
       width: 100%;
 
       margin-top: 40px;
+    }
+
+    .countdown-today {
+
+      display: none;
+
+      grid-column: 1 / -1;
+
+      color: var(--wine);
+
+      font:
+        700
+        clamp(2.4rem, 9vw, 4.5rem)/1
+        "Cinzel Decorative",
+        serif;
+
+      letter-spacing: .12em;
+
+      text-shadow:
+        0 0 18px rgba(111, 23, 45, .28);
+    }
+
+    .countdown.is-today .time-box {
+
+      display: none;
+    }
+
+    .countdown.is-today .countdown-today {
+
+      display: block;
+
+      animation:
+        today-pulse 1.6s ease-in-out infinite;
+    }
+
+    @keyframes today-pulse {
+
+      0%,
+      100% {
+
+        opacity: .82;
+
+        transform: scale(.96);
+      }
+
+      50% {
+
+        opacity: 1;
+
+        transform: scale(1.06);
+
+        text-shadow:
+          0 0 28px rgba(111, 23, 45, .5);
+      }
     }
 
 
@@ -2545,7 +2618,7 @@
       padding: 0;
 
       transform:
-        translateY(-20px);
+        translateY(-80px);
     }
 
     .page-three-panel .event-title {
@@ -2659,17 +2732,16 @@
 
       width:
         clamp(
-          96px,
-          26vw,
-          132px
+          72px,
+          20vw,
+          100px
         );
 
       margin-bottom:
         clamp(20px, 4.5vw, 28px);
 
       transform:
-        translateY(-40px)
-        scale(1.22);
+        translateY(-58px);
 
       transform-origin:
         center bottom;
@@ -3158,7 +3230,7 @@
           ></p>
 
           <p class="demo-note">
-            Enter Code
+            Enter Invitation Code
           </p>
 
         </form>
@@ -3192,7 +3264,7 @@
         <div>
 
           <h2 class="section-title reveal font-cinzel-decorative">
-           Consecration &amp; Investiture Service
+           Consecration &amp; <br> Investiture Service
           </h2>
 
           <p class="eyebrow reveal font-montserrat">
@@ -3238,7 +3310,7 @@
 
           <img
             class="page-two-image reveal"
-            src="./image (1).png"
+            src="./image_02.png"
             alt="Recognition of the elevation to the Episcopal Office of Bishop"
           >
 
@@ -3267,8 +3339,18 @@
 
           <div
             class="countdown reveal"
+            id="eventCountdown"
             aria-label="Event countdown"
+            aria-live="polite"
           >
+
+            <div
+              class="countdown-today"
+              id="countdownToday"
+              aria-hidden="true"
+            >
+              TODAY
+            </div>
 
             <div class="time-box">
 
@@ -3680,7 +3762,7 @@
 
   <footer class="page-footer">
     <p>
-      Designed by
+      Design by
         Kaizen Supplies Ltd
     </p>
   </footer>
@@ -3714,28 +3796,8 @@
   <script>
 
 
-    /* =======================================================
-       DEMO GUEST DATABASE
-
-       IMPORTANT:
-       This is only for testing.
-
-       In production, move validation to
-       a backend/database/API.
-    ======================================================== */
-
-    const demoGuests = {
-
-      "002":
-        "Mr. Mwesigwa Mark & Family",
-
-      "001":
-        "Seth Nuwewenka",
-
-      "003":
-        "Ms. Sarah Namusoke"
-
-    };
+    const invitationLookupUrl =
+      "https://txavfhfqqnozoehshwri.supabase.co/functions/v1/validate-invitation";
 
 
     /* =======================================================
@@ -3790,7 +3852,7 @@
       document.getElementById("rsvpStatus");
 
     const rsvpEmail =
-      "covenantnationschurch@gmail.com";
+      "covenantnationschurchug@gmail.com";
 
 
     function openRsvpPopup() {
@@ -4198,6 +4260,11 @@
         mainName.textContent =
           guestName;
 
+        mainName.classList.toggle(
+          "is-long-name",
+          guestName.length > 45
+        );
+
 
         /* Hide the code overlay */
 
@@ -4296,22 +4363,10 @@
 
     async function validateCode(code) {
 
-
-      /*
-        DEMO VALIDATION
-
-        Replace this with your backend API
-        when you move to production.
-      */
-
-      return demoGuests[code] || null;
-
-
-      /*
-        PRODUCTION EXAMPLE:
+      try {
 
         const response = await fetch(
-          "/api/invitations/validate",
+          invitationLookupUrl,
           {
             method: "POST",
 
@@ -4335,9 +4390,22 @@
         const data =
           await response.json();
 
+        if (
+          typeof data.guestName !==
+            "string" ||
+          data.guestName.trim() === ""
+        ) {
+          return null;
+        }
 
-        return data.guestName;
-      */
+        return data.guestName.trim();
+
+      }
+
+      catch {
+
+        return null;
+      }
 
     }
 
@@ -4551,20 +4619,63 @@
        COUNTDOWN
     ======================================================== */
 
-    const eventDate =
+    const eventDayStart =
       new Date(
-        "2026-08-23T16:00:00+03:00"
+        "2026-08-23T00:00:00+03:00"
+      ).getTime();
+
+    const eventDayEnd =
+      new Date(
+        "2026-08-24T00:00:00+03:00"
       ).getTime();
 
 
     function updateCountdown() {
 
 
+      const now =
+        Date.now();
+
+      const countdown =
+        document.getElementById(
+          "eventCountdown"
+        );
+
+      const todayMessage =
+        document.getElementById(
+          "countdownToday"
+        );
+
+      const isEventDay =
+        now >= eventDayStart &&
+        now < eventDayEnd;
+
+      countdown.classList.toggle(
+        "is-today",
+        isEventDay
+      );
+
+      countdown.setAttribute(
+        "aria-label",
+        isEventDay
+          ? "The event is today"
+          : "Event countdown"
+      );
+
+      todayMessage.setAttribute(
+        "aria-hidden",
+        String(!isEventDay)
+      );
+
+      if (isEventDay) {
+        return;
+      }
+
       const difference =
         Math.max(
           0,
-          eventDate -
-          Date.now()
+          eventDayStart -
+          now
         );
 
 
