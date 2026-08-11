@@ -453,10 +453,9 @@
     }
 
     function formatName(invitation) {
-      return [invitation.title, invitation.name]
-        .map((part) => typeof part === "string" ? part.trim() : "")
-        .filter(Boolean)
-        .join(" ");
+      return typeof invitation.name === "string"
+        ? invitation.name.trim()
+        : "";
     }
 
     function messageText(invitation) {

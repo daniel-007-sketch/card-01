@@ -95,12 +95,12 @@ Deno.serve(
 
       lookupUrl.searchParams.set(
         "select",
-        "id,title,name",
+        "code,name",
       );
 
       lookupUrl.searchParams.set(
         "order",
-        "id.asc",
+        "code.asc",
       );
 
       const offset = position - 1;
@@ -129,8 +129,7 @@ Deno.serve(
       }
 
       const guests = await databaseResponse.json() as Array<{
-        id: string;
-        title: string | null;
+        code: string;
         name: string;
       }>;
 
@@ -157,8 +156,7 @@ Deno.serve(
           position,
           total,
           guest: {
-            code: guest.id.trim(),
-            title: guest.title?.trim() ?? "",
+            code: guest.code.trim(),
             name: guest.name.trim(),
           },
         },

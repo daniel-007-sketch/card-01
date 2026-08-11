@@ -1,16 +1,16 @@
 create table public.invitation_guests (
-  id text primary key,
-  title text null,
+  code text primary key,
   name text not null,
-  contact text not null,
-  constraint invitation_guests_id_format
-    check (id ~ '^[0-9]{3}$'),
-  constraint invitation_guests_title_not_blank
-    check (title is null or btrim(title) <> ''),
+  guest_limit smallint not null,
+  phone_number text not null,
+  constraint invitation_guests_code_format
+    check (code ~ '^[0-9]{3}$'),
   constraint invitation_guests_name_not_blank
     check (btrim(name) <> ''),
-  constraint invitation_guests_contact_not_blank
-    check (btrim(contact) <> '')
+  constraint invitation_guests_guest_limit_positive
+    check (guest_limit > 0),
+  constraint invitation_guests_phone_number_digits
+    check (phone_number ~ '^[0-9]+$')
 );
 
 alter table public.invitation_guests
@@ -19,5 +19,5 @@ alter table public.invitation_guests
 revoke all on table public.invitation_guests from public;
 revoke all on table public.invitation_guests from anon;
 revoke all on table public.invitation_guests from authenticated;
+revoke all on table public.invitation_guests from service_role;
 grant select on table public.invitation_guests to service_role;
-

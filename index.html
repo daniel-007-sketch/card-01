@@ -2851,6 +2851,41 @@
       letter-spacing: .08em;
     }
 
+    .page-nine-guest-limit {
+
+      width: 100%;
+
+      max-width: 310px;
+
+      margin:
+        clamp(14px, 3vw, 20px)
+        auto 0;
+
+      padding-inline:
+        clamp(
+          14px,
+          4vw,
+          20px
+        );
+
+      color: var(--wine);
+
+      font-size:
+        clamp(
+          .62rem,
+          1.9vw,
+          .72rem
+        );
+
+      font-weight: 600;
+
+      line-height: 1.5;
+
+      letter-spacing: .055em;
+
+      text-transform: none;
+    }
+
     /* =========================================================
        PAGE 5 RECEPTION SCHEDULE
     ========================================================= */
@@ -3689,6 +3724,11 @@
             <br><span class="page-nine-citation">Psalm 118:23-24</span>
           </p>
 
+          <p
+            class="eyebrow font-montserrat page-nine-guest-limit"
+            id="guestLimitText"
+          ></p>
+
         </div>
 
       </section>
@@ -3869,6 +3909,9 @@
 
     const mainName =
       document.getElementById("mainGuestName");
+
+    const guestLimitText =
+      document.getElementById("guestLimitText");
 
 
     /* =======================================================
@@ -4242,7 +4285,7 @@
         }
 
 
-        const guestName =
+        const guest =
           await validateCode(code);
 
 
@@ -4250,7 +4293,7 @@
            INVALID CODE
         ================================================= */
 
-        if (!guestName) {
+        if (!guest) {
 
           message.textContent =
             "That invitation code was not found.";
@@ -4268,6 +4311,12 @@
         ================================================= */
 
         isOpening = true;
+
+        const guestName =
+          guest.guestName;
+
+        const guestLimit =
+          guest.guestLimit;
 
         message.textContent = "";
 
@@ -4306,6 +4355,13 @@
           "is-long-name",
           guestName.length > 45
         );
+
+        guestLimitText.textContent =
+          `This invitation is reserved for ${guestLimit} ${
+            guestLimit === 1
+              ? "person"
+              : "people"
+          }.`;
 
 
         /* Hide the code overlay */
@@ -4435,12 +4491,21 @@
         if (
           typeof data.guestName !==
             "string" ||
-          data.guestName.trim() === ""
+          data.guestName.trim() === "" ||
+          !Number.isSafeInteger(
+            data.guestLimit
+          ) ||
+          data.guestLimit < 1
         ) {
           return null;
         }
 
-        return data.guestName.trim();
+        return {
+          guestName:
+            data.guestName.trim(),
+          guestLimit:
+            data.guestLimit,
+        };
 
       }
 

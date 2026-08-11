@@ -5,7 +5,7 @@ const corsHeaders = {
 };
 
 function jsonResponse(
-  body: Record<string, string>,
+  body: Record<string, unknown>,
   status: number,
 ) {
   return new Response(
@@ -107,13 +107,13 @@ Deno.serve(
         );
 
       lookupUrl.searchParams.set(
-        "id",
+        "code",
         `eq.${code}`,
       );
 
       lookupUrl.searchParams.set(
         "select",
-        "title,name",
+        "name,guest_limit",
       );
 
       lookupUrl.searchParams.set(
@@ -140,8 +140,8 @@ Deno.serve(
 
       const guests =
         await databaseResponse.json() as Array<{
-          title: string | null;
           name: string;
+          guest_limit: number;
         }>;
 
       if (
@@ -154,19 +154,27 @@ Deno.serve(
         );
       }
 
-      const title =
-        guests[0].title?.trim() ?? "";
-
       const name =
         guests[0].name.trim();
 
-      const guestName =
-        [title, name]
-          .filter(Boolean)
-          .join(" ");
+      const guestLimit =
+        guests[0].guest_limit;
+
+      if (
+        name === "" ||
+        !Number.isSafeInteger(guestLimit) ||
+        guestLimit < 1
+      ) {
+        throw new Error(
+          "Guest data is invalid.",
+        );
+      }
 
       return jsonResponse(
-        { guestName },
+        {
+          guestName: name,
+          guestLimit,
+        },
         200,
       );
     }
@@ -178,4 +186,3 @@ Deno.serve(
     }
   },
 );
-
