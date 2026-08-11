@@ -1,3 +1,5 @@
 [functions.validate-invitation]
 verify_jwt = false
 
+[functions.invitation-messages]
+verify_jwt = false

@@ -1,0 +1,610 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#f6f1e7">
+  <meta name="description" content="Covenant Nations Church invitation message viewer.">
+  <title>CNC Invitation Messages</title>
+  <style>
+    :root {
+      --ink: #1f2924;
+      --muted: #69726c;
+      --paper: #fffdf8;
+      --canvas: #f4efe5;
+      --green: #173f35;
+      --green-light: #276755;
+      --gold: #b8954d;
+      --line: rgba(31, 41, 36, 0.13);
+      --shadow: 0 24px 70px rgba(35, 42, 37, 0.12);
+    }
+
+    * {
+      box-sizing: border-box;
+    }
+
+    html {
+      min-height: 100%;
+      background: var(--canvas);
+    }
+
+    body {
+      min-width: 320px;
+      min-height: 100vh;
+      margin: 0;
+      color: var(--ink);
+      background:
+        radial-gradient(circle at 12% 15%, rgba(184, 149, 77, 0.12), transparent 28rem),
+        radial-gradient(circle at 88% 88%, rgba(23, 63, 53, 0.09), transparent 30rem),
+        var(--canvas);
+      font-family: Georgia, "Times New Roman", serif;
+    }
+
+    button {
+      font: inherit;
+    }
+
+    .page-shell {
+      width: min(100% - 32px, 760px);
+      min-height: 100vh;
+      margin: 0 auto;
+      padding: clamp(24px, 6vh, 64px) 0 26px;
+      display: grid;
+      grid-template-rows: auto 1fr auto;
+      gap: 24px;
+    }
+
+    .brand {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 12px;
+      color: var(--green);
+    }
+
+    .brand img {
+      width: 44px;
+      height: 44px;
+      object-fit: contain;
+    }
+
+    .brand-copy {
+      display: grid;
+      gap: 2px;
+      font-family: Arial, Helvetica, sans-serif;
+      text-transform: uppercase;
+      letter-spacing: 0.16em;
+    }
+
+    .brand-copy strong {
+      font-size: 0.75rem;
+    }
+
+    .brand-copy span {
+      color: var(--muted);
+      font-size: 0.62rem;
+    }
+
+    .message-stage {
+      display: grid;
+      place-items: center;
+    }
+
+    .message-panel {
+      width: 100%;
+      overflow: hidden;
+      border: 1px solid rgba(184, 149, 77, 0.3);
+      border-radius: 26px;
+      background: var(--paper);
+      box-shadow: var(--shadow);
+    }
+
+    .message-accent {
+      height: 6px;
+      background: linear-gradient(90deg, var(--green), var(--gold), var(--green));
+    }
+
+    .message-content {
+      min-height: 410px;
+      padding: clamp(34px, 7vw, 64px) clamp(24px, 8vw, 72px) 30px;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      text-align: center;
+    }
+
+    .message {
+      margin: 0;
+      font-size: clamp(1.2rem, 3.2vw, 1.65rem);
+      line-height: 1.65;
+      text-wrap: balance;
+    }
+
+    .guest-name {
+      color: var(--green);
+      font-weight: 700;
+    }
+
+    .event-link {
+      display: inline-block;
+      max-width: 100%;
+      margin-top: 16px;
+      color: var(--green-light);
+      font-family: Arial, Helvetica, sans-serif;
+      font-size: clamp(0.82rem, 2.2vw, 0.98rem);
+      font-weight: 700;
+      line-height: 1.4;
+      overflow-wrap: anywhere;
+      text-underline-offset: 4px;
+    }
+
+    .code-row {
+      margin: 20px 0 0;
+      color: var(--muted);
+      font-family: Arial, Helvetica, sans-serif;
+      font-size: 0.76rem;
+      font-weight: 700;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+    }
+
+    .invitation-code {
+      display: inline-block;
+      margin-left: 6px;
+      padding: 7px 10px;
+      border: 1px solid rgba(184, 149, 77, 0.4);
+      border-radius: 8px;
+      color: var(--green);
+      background: rgba(184, 149, 77, 0.09);
+      font-family: "Courier New", Courier, monospace;
+      font-size: 0.92rem;
+      letter-spacing: 0.08em;
+    }
+
+    .copy-wrap {
+      padding: 0 clamp(24px, 8vw, 72px) clamp(28px, 5vw, 42px);
+    }
+
+    .copy-button {
+      width: 100%;
+      min-height: 52px;
+      border: 0;
+      border-radius: 14px;
+      color: #fff;
+      background: var(--green);
+      box-shadow: 0 10px 24px rgba(23, 63, 53, 0.2);
+      cursor: pointer;
+      font-family: Arial, Helvetica, sans-serif;
+      font-size: 0.88rem;
+      font-weight: 700;
+      letter-spacing: 0.04em;
+      transition: transform 160ms ease, background 160ms ease, box-shadow 160ms ease;
+    }
+
+    .copy-button:hover {
+      background: var(--green-light);
+      box-shadow: 0 12px 28px rgba(23, 63, 53, 0.26);
+      transform: translateY(-1px);
+    }
+
+    .copy-button:active {
+      transform: translateY(0);
+    }
+
+    .copy-button:focus-visible,
+    .arrow-button:focus-visible,
+    .retry-button:focus-visible,
+    .event-link:focus-visible {
+      outline: 3px solid rgba(184, 149, 77, 0.65);
+      outline-offset: 3px;
+    }
+
+    .page-footer {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 18px;
+      min-height: 52px;
+      color: var(--muted);
+      font-family: Arial, Helvetica, sans-serif;
+    }
+
+    .position {
+      margin: 0;
+      font-size: 0.82rem;
+      font-weight: 700;
+      letter-spacing: 0.04em;
+    }
+
+    .navigation {
+      display: flex;
+      gap: 10px;
+    }
+
+    .arrow-button {
+      width: 46px;
+      height: 46px;
+      display: grid;
+      place-items: center;
+      border: 1px solid var(--line);
+      border-radius: 50%;
+      color: var(--green);
+      background: rgba(255, 253, 248, 0.8);
+      cursor: pointer;
+      font-family: Arial, Helvetica, sans-serif;
+      font-size: 1.35rem;
+      line-height: 1;
+      transition: border-color 160ms ease, color 160ms ease, transform 160ms ease;
+    }
+
+    .arrow-button:hover:not(:disabled) {
+      border-color: var(--gold);
+      color: var(--gold);
+      transform: translateY(-1px);
+    }
+
+    .arrow-button:disabled,
+    .copy-button:disabled {
+      cursor: not-allowed;
+      opacity: 0.38;
+      transform: none;
+    }
+
+    .status-screen {
+      min-height: 410px;
+      padding: 42px 24px;
+      display: grid;
+      place-content: center;
+      justify-items: center;
+      gap: 16px;
+      text-align: center;
+    }
+
+    .spinner {
+      width: 38px;
+      height: 38px;
+      border: 3px solid rgba(23, 63, 53, 0.15);
+      border-top-color: var(--green);
+      border-radius: 50%;
+      animation: spin 800ms linear infinite;
+    }
+
+    .status-title {
+      margin: 0;
+      color: var(--green);
+      font-size: 1.2rem;
+    }
+
+    .status-copy {
+      max-width: 38ch;
+      margin: 0;
+      color: var(--muted);
+      font-family: Arial, Helvetica, sans-serif;
+      font-size: 0.9rem;
+      line-height: 1.55;
+    }
+
+    .retry-button {
+      min-height: 42px;
+      padding: 0 20px;
+      border: 1px solid var(--green);
+      border-radius: 999px;
+      color: var(--green);
+      background: transparent;
+      cursor: pointer;
+      font-family: Arial, Helvetica, sans-serif;
+      font-weight: 700;
+    }
+
+    [hidden] {
+      display: none !important;
+    }
+
+    @keyframes spin {
+      to { transform: rotate(360deg); }
+    }
+
+    @media (max-width: 520px) {
+      .page-shell {
+        width: min(100% - 22px, 760px);
+        padding-top: 18px;
+        gap: 16px;
+      }
+
+      .brand img {
+        width: 38px;
+        height: 38px;
+      }
+
+      .message-panel {
+        border-radius: 20px;
+      }
+
+      .message-content {
+        min-height: 390px;
+      }
+
+      .message {
+        line-height: 1.55;
+      }
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      *, *::before, *::after {
+        scroll-behavior: auto !important;
+        transition-duration: 0.01ms !important;
+        animation-duration: 0.01ms !important;
+        animation-iteration-count: 1 !important;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="page-shell">
+    <header class="brand" aria-label="Covenant Nations Church">
+      <img src="CNC_logo.png" alt="">
+      <div class="brand-copy">
+        <strong>Covenant Nations</strong>
+        <span>Invitation messages</span>
+      </div>
+    </header>
+
+    <main class="message-stage">
+      <article class="message-panel" aria-live="polite">
+        <div class="message-accent"></div>
+
+        <div class="status-screen" id="loadingState">
+          <div class="spinner" aria-hidden="true"></div>
+          <p class="status-copy">Loading invitation message…</p>
+        </div>
+
+        <div class="status-screen" id="errorState" hidden>
+          <h1 class="status-title">Unable to load invitations</h1>
+          <p class="status-copy" id="errorMessage">Please check your connection and try again.</p>
+          <button class="retry-button" id="retryButton" type="button">Try again</button>
+        </div>
+
+        <div id="messageView" hidden>
+          <div class="message-content">
+            <p class="message">
+              Hello <span class="guest-name" id="guestName"></span>,<br>
+              The Covenant Nations family<br>
+              of churches warmly invites you for<br>
+              the consecration &amp; investiture service.
+            </p>
+
+            <a
+              class="event-link"
+              href="https://aquamarine-vacherin-384a46.netlify.app/"
+              target="_blank"
+              rel="noopener noreferrer"
+            >https://aquamarine-vacherin-384a46.netlify.app/</a>
+
+            <p class="code-row">
+              Invitation Code:
+              <code class="invitation-code" id="invitationCode"></code>
+            </p>
+          </div>
+
+          <div class="copy-wrap">
+            <button class="copy-button" id="copyButton" type="button">Copy message</button>
+          </div>
+        </div>
+      </article>
+    </main>
+
+    <footer class="page-footer">
+      <p class="position" id="positionText">— / — names</p>
+
+      <nav class="navigation" aria-label="Invitation messages">
+        <button class="arrow-button" id="previousButton" type="button" aria-label="Previous name" disabled>&larr;</button>
+        <button class="arrow-button" id="nextButton" type="button" aria-label="Next name" disabled>&rarr;</button>
+      </nav>
+    </footer>
+  </div>
+
+  <script>
+    const invitationMessagesUrl =
+      "https://txavfhfqqnozoehshwri.supabase.co/functions/v1/invitation-messages";
+    const invitationLink =
+      "https://aquamarine-vacherin-384a46.netlify.app/";
+
+    const loadingState = document.getElementById("loadingState");
+    const errorState = document.getElementById("errorState");
+    const errorMessage = document.getElementById("errorMessage");
+    const messageView = document.getElementById("messageView");
+    const guestName = document.getElementById("guestName");
+    const invitationCode = document.getElementById("invitationCode");
+    const copyButton = document.getElementById("copyButton");
+    const retryButton = document.getElementById("retryButton");
+    const positionText = document.getElementById("positionText");
+    const previousButton = document.getElementById("previousButton");
+    const nextButton = document.getElementById("nextButton");
+
+    let currentInvitation = null;
+    let currentPosition = 1;
+    let activeRequest = null;
+
+    function requestedPosition() {
+      const value = Number.parseInt(
+        new URL(window.location.href).searchParams.get("guest") || "1",
+        10,
+      );
+
+      return Number.isInteger(value) && value > 0 ? value : 1;
+    }
+
+    function showLoading() {
+      loadingState.hidden = false;
+      errorState.hidden = true;
+      messageView.hidden = true;
+      positionText.textContent = "— / — names";
+      previousButton.disabled = true;
+      nextButton.disabled = true;
+      copyButton.disabled = true;
+    }
+
+    function showError(message) {
+      loadingState.hidden = true;
+      errorState.hidden = false;
+      messageView.hidden = true;
+      errorMessage.textContent = message;
+      positionText.textContent = "— / — names";
+    }
+
+    function formatName(invitation) {
+      return [invitation.title, invitation.name]
+        .map((part) => typeof part === "string" ? part.trim() : "")
+        .filter(Boolean)
+        .join(" ");
+    }
+
+    function messageText(invitation) {
+      return [
+        `Hello ${formatName(invitation)},`,
+        "The Covenant Nations family",
+        "of churches warmly invites you for",
+        "the consecration & investiture service.",
+        "",
+        `Link: ${invitationLink}`,
+        `Invitation Code: ${invitation.code}`,
+      ].join("\n");
+    }
+
+    function renderInvitation(data) {
+      currentInvitation = data.guest;
+      currentPosition = data.position;
+      guestName.textContent = formatName(data.guest);
+      invitationCode.textContent = data.guest.code;
+      positionText.textContent = `${data.position}/${data.total} names`;
+      previousButton.disabled = data.position <= 1;
+      nextButton.disabled = data.position >= data.total;
+      copyButton.disabled = false;
+      copyButton.textContent = "Copy message";
+      loadingState.hidden = true;
+      errorState.hidden = true;
+      messageView.hidden = false;
+    }
+
+    async function loadInvitation(position, historyMode = "replace") {
+      if (activeRequest) {
+        activeRequest.abort();
+      }
+
+      activeRequest = new AbortController();
+      showLoading();
+
+      try {
+        const url = new URL(invitationMessagesUrl);
+        url.searchParams.set("position", String(position));
+
+        const response = await fetch(url, {
+          method: "GET",
+          headers: { "Accept": "application/json" },
+          cache: "no-store",
+          signal: activeRequest.signal,
+        });
+
+        if (!response.ok) {
+          if (response.status === 404) {
+            throw new Error("That invitation position does not exist.");
+          }
+
+          throw new Error("Please check your connection and try again.");
+        }
+
+        const data = await response.json();
+
+        if (
+          !data ||
+          !data.guest ||
+          typeof data.guest.code !== "string" ||
+          typeof data.guest.name !== "string" ||
+          !Number.isInteger(data.position) ||
+          !Number.isInteger(data.total)
+        ) {
+          throw new Error("The invitation data could not be read.");
+        }
+
+        const pageUrl = new URL(window.location.href);
+        pageUrl.searchParams.set("guest", String(data.position));
+        window.history[historyMode + "State"](
+          { position: data.position },
+          "",
+          pageUrl,
+        );
+
+        renderInvitation(data);
+      } catch (error) {
+        if (error.name !== "AbortError") {
+          showError(error.message || "Please check your connection and try again.");
+        }
+      }
+    }
+
+    async function copyMessage() {
+      if (!currentInvitation) {
+        return;
+      }
+
+      try {
+        await navigator.clipboard.writeText(messageText(currentInvitation));
+      } catch {
+        const textArea = document.createElement("textarea");
+        textArea.value = messageText(currentInvitation);
+        textArea.setAttribute("readonly", "");
+        textArea.style.position = "fixed";
+        textArea.style.opacity = "0";
+        document.body.appendChild(textArea);
+        textArea.select();
+        document.execCommand("copy");
+        textArea.remove();
+      }
+
+      copyButton.textContent = "Message copied";
+      window.setTimeout(() => {
+        copyButton.textContent = "Copy message";
+      }, 1800);
+    }
+
+    function goToPosition(position) {
+      if (!currentInvitation || position < 1) {
+        return;
+      }
+
+      loadInvitation(position, "push");
+    }
+
+    previousButton.addEventListener("click", () => {
+      goToPosition(currentPosition - 1);
+    });
+
+    nextButton.addEventListener("click", () => {
+      goToPosition(currentPosition + 1);
+    });
+
+    copyButton.addEventListener("click", copyMessage);
+    retryButton.addEventListener("click", () => loadInvitation(requestedPosition()));
+
+    window.addEventListener("popstate", () => {
+      loadInvitation(requestedPosition(), "replace");
+    });
+
+    window.addEventListener("keydown", (event) => {
+      if (event.altKey || event.ctrlKey || event.metaKey || event.shiftKey) {
+        return;
+      }
+
+      if (event.key === "ArrowLeft" && !previousButton.disabled) {
+        previousButton.click();
+      }
+
+      if (event.key === "ArrowRight" && !nextButton.disabled) {
+        nextButton.click();
+      }
+    });
+
+    loadInvitation(requestedPosition());
+  </script>
+</body>
+</html>
