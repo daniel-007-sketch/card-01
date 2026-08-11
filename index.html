@@ -1875,6 +1875,23 @@
 
     .page-4-content
     .venue-mini
+    .venue-location-label {
+
+      font-size: .64rem;
+
+      transform:
+        translateY(-3px);
+    }
+
+    .page-4-content
+    .venue-mini
+    .venue-map-label {
+
+      margin-top: 16px;
+    }
+
+    .page-4-content
+    .venue-mini
     .venue-name {
 
       margin: 0;
@@ -1885,6 +1902,27 @@
           4.5vw,
           1.9rem
         );
+    }
+
+    .page-4-content
+    .venue-mini
+    .venue-name + .eyebrow {
+
+      margin-top: 6px;
+    }
+
+    .map-direction-arrow {
+
+      display: block;
+
+      margin:
+        4px auto -5px;
+
+      color: var(--wine);
+
+      font-size: 1rem;
+
+      line-height: 1;
     }
 
     .page-4-content
@@ -3416,7 +3454,7 @@
 
           <div class="venue-mini reveal">
 
-            <p class="eyebrow font-montserrat">
+            <p class="eyebrow font-montserrat venue-location-label">
               Location
             </p>
 
@@ -3424,13 +3462,26 @@
               Covenant Hill, Maya
             </h3>
 
+            <p class="eyebrow font-montserrat">
+              Next to Maya Nature Resort
+            </p>
+
+            <p class="eyebrow font-montserrat venue-map-label">
+              Google Maps
+            </p>
+
+            <span
+              class="map-direction-arrow"
+              aria-hidden="true"
+            >&#8595;</span>
+
             <a
               class="action"
               href="https://www.google.com/maps/place/Maya+Nature+Resort/@0.2581249,32.4308859,17z/data=!3m1!4b1!4m9!3m8!1s0x177da1c24d3e1d25:0x4ed058f6c4009880!5m2!4m1!1i2!8m2!3d0.2581249!4d32.4334608!16s%2Fg%2F11h5wsxj29?entry=ttu&g_ep=EgoyMDI2MDcyMi4wIKXMDSoASAFQAw%3D%3D"
               target="_blank"
               rel="noopener"
             >
-              Google Maps
+              Click here
             </a>
 
           </div>
@@ -3496,7 +3547,7 @@
             >
               <img
                 src="./flower.png"
-                alt=""
+                alt="flower"
               >
             </div>
 
@@ -3505,7 +3556,7 @@
               data-schedule-index="0"
             >
               <div class="schedule-time">
-                5pm
+                11:00am
               </div>
             </div>
 
@@ -3514,7 +3565,7 @@
               data-schedule-index="0"
             >
               <div class="schedule-event">
-                Guest Arrival
+                Arrival of Guests
               </div>
             </div>
 
@@ -3523,7 +3574,7 @@
               data-schedule-index="1"
             >
               <div class="schedule-time">
-                6pm
+                11:30am
               </div>
             </div>
 
@@ -3532,7 +3583,7 @@
               data-schedule-index="1"
             >
               <div class="schedule-event">
-                Prayer
+                Arrival of VIPs
               </div>
             </div>
 
@@ -3541,7 +3592,7 @@
               data-schedule-index="2"
             >
               <div class="schedule-time">
-                7pm
+                11:45am
               </div>
             </div>
 
@@ -3550,7 +3601,7 @@
               data-schedule-index="2"
             >
               <div class="schedule-event">
-                Speeches
+                Arrival of Special Guests
               </div>
             </div>
 
@@ -3559,7 +3610,7 @@
               data-schedule-index="3"
             >
               <div class="schedule-time">
-                8pm
+                12:00pm
               </div>
             </div>
 
@@ -3568,25 +3619,7 @@
               data-schedule-index="3"
             >
               <div class="schedule-event">
-                Dinner
-              </div>
-            </div>
-
-            <div
-              class="schedule-side left"
-              data-schedule-index="4"
-            >
-              <div class="schedule-time">
-                9pm
-              </div>
-            </div>
-
-            <div
-              class="schedule-side right"
-              data-schedule-index="4"
-            >
-              <div class="schedule-event">
-                Dance
+                Arrival of Guest of Honor
               </div>
             </div>
 
