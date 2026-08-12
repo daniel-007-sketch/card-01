@@ -1118,6 +1118,15 @@
     .action {
 
       margin-top: 16px;
+
+      border-color:
+        var(--cnc-blue);
+
+      color:
+        var(--white) !important;
+
+      background:
+        var(--cnc-blue);
     }
 
 
@@ -1927,12 +1936,24 @@
 
     .page-4-content
     .venue-mini
-    .action {
+    .action,
+    .page-4-content
+    .venue-mini
+    .action:visited {
 
       margin-top: 12px;
 
       padding:
         10px 18px;
+
+      border-color:
+        var(--cnc-blue);
+
+      color:
+        var(--white) !important;
+
+      background:
+        var(--cnc-blue);
 
       font-size: .62rem;
     }
@@ -2018,7 +2039,11 @@
           translateY(-3px);
       }
 
-      .page-4-content .venue-mini .action:hover,
+      .page-4-content .venue-mini .action:hover {
+
+        color: var(--white) !important;
+      }
+
       #openRsvp:hover {
 
         color: #ffffff !important;
@@ -3591,7 +3616,7 @@
               data-schedule-index="0"
             >
               <div class="schedule-time">
-                11:00am
+                10:00am
               </div>
             </div>
 
@@ -3609,7 +3634,7 @@
               data-schedule-index="1"
             >
               <div class="schedule-time">
-                11:30am
+                11:45am
               </div>
             </div>
 
@@ -3618,31 +3643,13 @@
               data-schedule-index="1"
             >
               <div class="schedule-event">
-                Arrival of VIPs
-              </div>
-            </div>
-
-            <div
-              class="schedule-side left"
-              data-schedule-index="2"
-            >
-              <div class="schedule-time">
-                11:45am
-              </div>
-            </div>
-
-            <div
-              class="schedule-side right"
-              data-schedule-index="2"
-            >
-              <div class="schedule-event">
                 Arrival of Special Guests
               </div>
             </div>
 
             <div
               class="schedule-side left"
-              data-schedule-index="3"
+              data-schedule-index="2"
             >
               <div class="schedule-time">
                 12:00pm
@@ -3651,10 +3658,28 @@
 
             <div
               class="schedule-side right"
-              data-schedule-index="3"
+              data-schedule-index="2"
             >
               <div class="schedule-event">
                 Arrival of Guest of Honor
+              </div>
+            </div>
+
+            <div
+              class="schedule-side left"
+              data-schedule-index="3"
+            >
+              <div class="schedule-time">
+                12:30pm
+              </div>
+            </div>
+
+            <div
+              class="schedule-side right"
+              data-schedule-index="3"
+            >
+              <div class="schedule-event">
+                Procession
               </div>
             </div>
 
