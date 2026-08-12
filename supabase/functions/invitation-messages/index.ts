@@ -100,7 +100,7 @@ Deno.serve(
 
       lookupUrl.searchParams.set(
         "order",
-        "code.asc",
+        "display_order.asc",
       );
 
       const offset = position - 1;
