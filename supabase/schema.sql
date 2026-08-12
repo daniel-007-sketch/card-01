@@ -5,9 +5,10 @@ create table public.invitation_guests (
   phone_number text not null,
   display_order integer not null unique,
   constraint invitation_guests_code_format
-    check (code ~ '^[1-9][0-9]{2}$'),
-  constraint invitation_guests_code_not_repeated
-    check (code !~ '^([0-9])\1\1$'),
+    check (
+      code ~ '^[0-9]{3}$'
+      and code <> '000'
+    ),
   constraint invitation_guests_name_not_blank
     check (btrim(name) <> ''),
   constraint invitation_guests_guest_limit_positive
