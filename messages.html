@@ -56,33 +56,30 @@
 
     .brand {
       display: flex;
+      flex-direction: column;
       align-items: center;
       justify-content: center;
-      gap: 12px;
+      gap: 8px;
       color: var(--green);
     }
 
     .brand img {
-      width: 44px;
-      height: 44px;
+      width: clamp(96px, 18vw, 140px);
+      height: auto;
       object-fit: contain;
     }
 
     .brand-copy {
       display: grid;
-      gap: 2px;
       font-family: Arial, Helvetica, sans-serif;
       text-transform: uppercase;
       letter-spacing: 0.16em;
-    }
-
-    .brand-copy strong {
-      font-size: 0.75rem;
+      text-align: center;
     }
 
     .brand-copy span {
       color: var(--muted);
-      font-size: 0.62rem;
+      font-size: 0.75rem;
     }
 
     .message-stage {
@@ -312,8 +309,8 @@
       }
 
       .brand img {
-        width: 38px;
-        height: 38px;
+        width: 96px;
+        height: auto;
       }
 
       .message-panel {
@@ -344,7 +341,6 @@
     <header class="brand" aria-label="Covenant Nations Church">
       <img src="CNC_logo.png" alt="">
       <div class="brand-copy">
-        <strong>Covenant Nations</strong>
         <span>Invitation messages</span>
       </div>
     </header>
@@ -370,7 +366,7 @@
               Hello <span class="guest-name" id="guestName"></span>,<br>
               The Covenant Nations family<br>
               of churches warmly invites you for<br>
-              the consecration &amp; investiture service.
+              the Consecration &amp; Investiture service.
             </p>
 
             <a
