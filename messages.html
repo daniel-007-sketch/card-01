@@ -137,6 +137,11 @@
 
     .code-row {
       margin: 20px 0 0;
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
       color: var(--muted);
       font-family: Arial, Helvetica, sans-serif;
       font-size: 0.76rem;
@@ -146,16 +151,43 @@
     }
 
     .invitation-code {
-      display: inline-block;
-      margin-left: 6px;
+      width: 5.5rem;
       padding: 7px 10px;
       border: 1px solid rgba(184, 149, 77, 0.4);
       border-radius: 8px;
+      outline: none;
       color: var(--green);
       background: rgba(184, 149, 77, 0.09);
       font-family: "Courier New", Courier, monospace;
       font-size: 0.92rem;
+      font-weight: 700;
       letter-spacing: 0.08em;
+      text-align: center;
+      transition: border-color 160ms ease, box-shadow 160ms ease;
+    }
+
+    .invitation-code:focus {
+      border-color: var(--gold);
+      box-shadow: 0 0 0 3px rgba(184, 149, 77, 0.16);
+    }
+
+    .code-lookup-button {
+      min-height: 34px;
+      padding: 7px 12px;
+      border: 1px solid var(--green);
+      border-radius: 8px;
+      color: #fff;
+      background: var(--green);
+      cursor: pointer;
+      font-family: Arial, Helvetica, sans-serif;
+      font-size: 0.72rem;
+      font-weight: 700;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+    }
+
+    .code-lookup-button:hover {
+      background: var(--green-light);
     }
 
     .copy-wrap {
@@ -376,10 +408,20 @@
               rel="noopener noreferrer"
             >https://bit.ly/cnc_Invitations</a>
 
-            <p class="code-row">
-              Invitation Code:
-              <code class="invitation-code" id="invitationCode"></code>
-            </p>
+            <form class="code-row" id="codeLookupForm">
+              <label for="invitationCode">Invitation Code:</label>
+              <input
+                class="invitation-code"
+                id="invitationCode"
+                type="text"
+                inputmode="numeric"
+                autocomplete="off"
+                pattern="[0-9]{1,3}"
+                maxlength="3"
+                aria-label="Invitation code"
+              >
+              <button class="code-lookup-button" type="submit">Go</button>
+            </form>
           </div>
 
           <div class="copy-wrap">
@@ -411,6 +453,7 @@
     const messageView = document.getElementById("messageView");
     const guestName = document.getElementById("guestName");
     const invitationCode = document.getElementById("invitationCode");
+    const codeLookupForm = document.getElementById("codeLookupForm");
     const copyButton = document.getElementById("copyButton");
     const retryButton = document.getElementById("retryButton");
     const positionText = document.getElementById("positionText");
@@ -470,7 +513,7 @@
       currentInvitation = data.guest;
       currentPosition = data.position;
       guestName.textContent = formatName(data.guest);
-      invitationCode.textContent = data.guest.code;
+      invitationCode.value = data.guest.code;
       positionText.textContent = `${data.position}/${data.total} names`;
       previousButton.disabled = data.position <= 1;
       nextButton.disabled = data.position >= data.total;
@@ -502,7 +545,7 @@
 
         if (!response.ok) {
           if (response.status === 404) {
-            throw new Error("That invitation position does not exist.");
+            throw new Error("That invitation code does not exist.");
           }
 
           throw new Error("Please check your connection and try again.");
@@ -578,6 +621,29 @@
       goToPosition(currentPosition + 1);
     });
 
+    invitationCode.addEventListener("input", () => {
+      invitationCode.value = invitationCode.value
+        .replace(/\D/g, "")
+        .slice(0, 3);
+      invitationCode.setCustomValidity("");
+    });
+
+    codeLookupForm.addEventListener("submit", (event) => {
+      event.preventDefault();
+
+      const code = invitationCode.value.trim();
+      const position = Number.parseInt(code, 10);
+
+      if (!/^\d{1,3}$/.test(code) || !Number.isInteger(position) || position < 1) {
+        invitationCode.setCustomValidity("Enter an invitation code from 001 to 999.");
+        invitationCode.reportValidity();
+        return;
+      }
+
+      invitationCode.setCustomValidity("");
+      loadInvitation(position, "push");
+    });
+
     copyButton.addEventListener("click", copyMessage);
     retryButton.addEventListener("click", () => loadInvitation(requestedPosition()));
 
@@ -587,6 +653,10 @@
 
     window.addEventListener("keydown", (event) => {
       if (event.altKey || event.ctrlKey || event.metaKey || event.shiftKey) {
+        return;
+      }
+
+      if (event.target === invitationCode) {
         return;
       }
 
